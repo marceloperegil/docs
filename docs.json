@@ -1,5 +1,6 @@
 {
   "name": "Documentación Automática",
+  "theme": "mint",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#0D9373",
