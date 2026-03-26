@@ -1,15 +1,14 @@
 {
+  "name": "Mi App Blazor",
   "navigation": [
     {
-      "group": "components",
+      "group": "Components",
       "pages": [
-        "components/LirmiDemoApp-Components-Layout-NavMenu",
-        "components/components"
+        "components/LirmiDemoApp-Components-Layout-NavMenu"
       ]
     },
-    "index",
     {
-      "group": "pages",
+      "group": "Pages",
       "pages": [
         "pages/LirmiDemoApp.Client-Pages-Counter",
         "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
