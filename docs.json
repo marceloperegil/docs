@@ -1,0 +1,29 @@
+{
+  "name": "Documentación Automática",
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#10B981",
+    "dark": "#047857"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Components",
+        "pages": [
+          "components/LirmiDemoApp-Components-Layout-NavMenu",
+          "components/components"
+        ]
+      },
+      {
+        "group": "Pages",
+        "pages": [
+          "pages/LirmiDemoApp.Client-Pages-Counter",
+          "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
+          "pages/getting-started",
+          "pages/project-structure"
+        ]
+      }
+    ]
+  }
+}
