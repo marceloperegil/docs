@@ -1,16 +1,11 @@
 {
-  "name": "Mi App Blazor",
-  "favicon": "/favicon.png",
-  "colors": {
-    "primary": "#0D9373",
-    "light": "#10B981",
-    "dark": "#047857"
-  },
   "navigation": [
+    "index",
     {
       "group": "Components",
       "pages": [
-        "components/LirmiDemoApp-Components-Layout-NavMenu"
+        "components/LirmiDemoApp-Components-Layout-NavMenu",
+        "components/components"
       ]
     },
     {
