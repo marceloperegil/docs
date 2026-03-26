@@ -1,9 +1,10 @@
-Aquí un resumen de los cambios:
+Este resumen detalla los cambios clave realizados en los archivos proporcionados:
 
-Se ha refactorizado la lógica de gestión del carrito de compras en el frontend:
+1.  **Refactorización Mayor del Sistema de Navegación:** Se introdujo una reestructuración profunda de la navegación, incluyendo nuevas definiciones de tipos (`src/types/navigation.d.ts`), un hook `useSidebarData` para gestionar la lógica de los ítems de la barra lateral, y utilidades para la navegación (`src/utils/navigation.ts`).
+2.  **Actualización de Componentes de Sidebar:** `SidebarItem.tsx` y `SidebarSection.tsx` fueron modificados para utilizar la nueva estructura de navegación.
+3.  **Integración en Layouts Principales:** La nueva barra lateral dinámica se integró en el `src/app/layout.tsx` principal de la aplicación y en el nuevo `src/app/dashboard/layout.tsx`.
+4.  **Nuevas Rutas y Secciones del Dashboard:** Se añadieron nuevas rutas para el dashboard, incluyendo una sección específica para `/dashboard/transactions`, cada una con su propio layout y página.
+5.  **Actualizaciones de Configuración de Aplicación:** `src/app/page.tsx`, `not-found.tsx` y `loading.tsx` fueron ajustados para alinear con la nueva estructura de layout.
+6.  **Soporte de Internacionalización (i18n):** Se actualizaron los archivos de locales (`public/locales/*/common.json`) con nuevas cadenas de texto para soportar las funcionalidades y secciones recién añadidas en inglés y español.
 
-*   **`public/js/utils.js`**: Ahora centraliza la obtención del `cartId` desde `localStorage`. Si no existe, redirige a `/api/carts` para asegurar la creación de uno, y exporta este ID para ser consumido por otros módulos.
-*   **`public/js/cart.js`**: Incorpora las funciones asíncronas `addProductToCart` y `deleteProductInCart`. Estas envían peticiones `POST` y `DELETE` respectivamente a los endpoints `/api/carts/:cartId/products/:productId` para gestionar el carrito. En éxito, actualizan la UI (removiendo el elemento) o recargan la página.
-*   **`public/js/product.js`**: Define la lógica para añadir productos al carrito desde la vista de detalle. Obtiene el `productId` del atributo `data-productId` del botón y, tras una petición `POST` exitosa, redirige al usuario a la página `/cart`.
-
-En resumen, se mejora la interacción asíncrona con el carrito usando APIs dedicadas y gestión centralizada del `cartId` vía `localStorage`.
+En resumen, la aplicación ahora cuenta con un sistema de navegación más modular y extensible, nuevas secciones en el dashboard y soporte i18n para estas adiciones.
