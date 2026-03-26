@@ -1,6 +1,9 @@
-Este update se centra en una mejora significativa de la infraestructura de la aplicación y la creación de una librería de componentes compartidos.
+Aquí un resumen de los cambios:
 
-1.  **Core Interceptors:** Se introdujo un `HttpAuthInterceptor` para la gestión centralizada de tokens y un `HttpLoadingInterceptor` (junto con un `LoadingService`) para indicar el estado de carga global en las peticiones HTTP, mejorando la UX.
-2.  **Librería de Componentes UI Compartidos:** Se desarrolló una suite exhaustiva de componentes UI reutilizables (ej. `MenuApp`, `Pagination`, `Table`, `Modal`, `Input`, `Button`, `Select`, `Skeleton`, `Search`, `Logo`), promoviendo la consistencia visual y la reusabilidad en toda la aplicación.
-3.  **Utilidades y Helpers:** Se agregaron funcionalidades como un `DebounceClickDirective`, un `ShortenStringPipe` y un `UtilsService` para optimizar tareas comunes y mejorar la limpieza del código.
-4.  **Configuración y Estilos:** Se actualizaron los archivos de entorno (base URL) y las variables SCSS globales, con las respectivas registraciones en `AppModule` y `SharedModule` para integrar estas nuevas funcionalidades.
+Se ha refactorizado la lógica de gestión del carrito de compras en el frontend:
+
+*   **`public/js/utils.js`**: Ahora centraliza la obtención del `cartId` desde `localStorage`. Si no existe, redirige a `/api/carts` para asegurar la creación de uno, y exporta este ID para ser consumido por otros módulos.
+*   **`public/js/cart.js`**: Incorpora las funciones asíncronas `addProductToCart` y `deleteProductInCart`. Estas envían peticiones `POST` y `DELETE` respectivamente a los endpoints `/api/carts/:cartId/products/:productId` para gestionar el carrito. En éxito, actualizan la UI (removiendo el elemento) o recargan la página.
+*   **`public/js/product.js`**: Define la lógica para añadir productos al carrito desde la vista de detalle. Obtiene el `productId` del atributo `data-productId` del botón y, tras una petición `POST` exitosa, redirige al usuario a la página `/cart`.
+
+En resumen, se mejora la interacción asíncrona con el carrito usando APIs dedicadas y gestión centralizada del `cartId` vía `localStorage`.
