@@ -21,8 +21,19 @@
         "pages": [
           "pages/LirmiDemoApp.Client-Pages-Counter",
           "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
+          "pages/UiToolkitPage",
           "pages/getting-started",
           "pages/project-structure"
+        ]
+      },
+      {
+        "group": "Shared",
+        "pages": [
+          "shared/UiAutocomplete",
+          "shared/UiCheckbox",
+          "shared/UiDatePicker",
+          "shared/UiSelector",
+          "shared/UiSwitch"
         ]
       }
     ]

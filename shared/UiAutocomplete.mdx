@@ -1,0 +1,96 @@
+¡Excelente! Como experto en documentación técnica, analizo el componente `UiAutocomplete.razor` y genero la documentación en formato MDX para Mintlify.
+
+---
+
+# Componente `UiAutocomplete`
+
+## Propósito
+
+El componente `UiAutocomplete` proporciona una funcionalidad de autocompletado (type-ahead) para campos de entrada de texto. Permite a los usuarios buscar y seleccionar elementos de una lista predefinida, mejorando la experiencia de usuario y la eficiencia en la entrada de datos al sugerir opciones a medida que se escribe.
+
+## Explicación Funcional
+
+Este componente renderiza un campo de entrada de texto (`<InputText>`) que, a medida que el usuario escribe, filtra dinámicamente una lista de elementos (`Items` de tipo `List<string>`) proporcionada externamente. Los resultados coincidentes se muestran en un menú desplegable interactivo justo debajo del campo de entrada.
+
+**Flujo de funcionamiento:**
+
+1.  **Inicialización:** Cuando el componente se carga o sus parámetros cambian (`OnParametersSet`), el `searchText` interno se sincroniza con el `Value` proporcionado, y la lista de elementos filtrados (`filteredItems`) se vacía.
+2.  **Entrada de Usuario:**
+    *   A medida que el usuario escribe en el campo de texto, el evento `@oninput` dispara el método `OnInput`.
+    *   `OnInput` actualiza el `searchText` interno y luego filtra la `Items` original. Si hay texto, se buscan coincidencias sin distinción entre mayúsculas y minúsculas (`StringComparison.OrdinalIgnoreCase`). Si el texto está vacío, la lista filtrada se vacía.
+    *   Después de filtrar, el componente invoca el `ValueChanged` para notificar al componente padre sobre el cambio en el texto de búsqueda.
+3.  **Visualización del Desplegable:** Si `filteredItems` contiene elementos, se renderiza una lista (`<ul>`) con los resultados. Esta lista tiene un posicionamiento absoluto y un `z-index` elevado para asegurar que se superponga a otros elementos.
+4.  **Selección de un Elemento:**
+    *   Al hacer clic en un elemento del menú desplegable, se invoca el método `SelectItem`.
+    *   `SelectItem` establece el `searchText` al elemento seleccionado, limpia la lista `filteredItems` (ocultando el desplegable), y luego invoca tanto `ValueChanged` (para actualizar el enlace bidireccional) como `OnSelected` (para notificar al padre que un elemento fue *seleccionado* del listado).
+
+**Propiedades (Parámetros):**
+
+*   `**Items**` (Tipo: `List<string>`, Predeterminado: `new List<string>()`): La lista completa de strings que el componente debe usar para las sugerencias de autocompletado.
+*   `**Value**` (Tipo: `string`): El valor actual del campo de entrada de texto. Utilizado para el enlace de datos bidireccional.
+*   `**ValueChanged**` (Tipo: `EventCallback<string>`): Un `EventCallback` que se dispara cuando el valor del campo de entrada cambia, permitiendo el enlace de datos bidireccional (`@bind-Value`).
+*   `**OnSelected**` (Tipo: `EventCallback<string>`): Un `EventCallback` que se dispara cuando el usuario selecciona explícitamente un elemento del menú desplegable. Recibe el string del elemento seleccionado.
+
+## Dependencias
+
+### Framework
+
+*   `**Microsoft.AspNetCore.Components**`: Esencial para cualquier componente Blazor, proporciona las clases base y atributos como `[Parameter]` y `EventCallback`.
+
+### Estilización (Opcional, pero implementado)
+
+El componente utiliza clases de [**Bootstrap 5**](https://getbootstrap.com/) para su estilización y presentación:
+
+*   `form-control`: Para el campo de entrada.
+*   `list-group`, `list-group-item`, `list-group-item-action`: Para la lista de sugerencias.
+*   Clases de utilidad como `position-absolute` para el posicionamiento del desplegable.
+
+Para que la estilización se aplique correctamente, tu aplicación Blazor debe tener Bootstrap incluido en su proyecto (típicamente a través de `wwwroot/index.html` o `wwwroot/app.css` para Blazor WebAssembly/Server, o `App.razor` para Blazor Web App).
+
+## Ejemplo de Uso
+
+A continuación se muestra cómo puedes integrar el componente `UiAutocomplete` en una página o componente Blazor.
+
+En tu componente padre (por ejemplo, `Pages/Index.razor`):
+
+```razor
+@page "/"
+
+<h3>Ejemplo de Autocompletado</h3>
+
+<p>Busca tu fruta favorita:</p>
+
+<div class="col-md-6">
+    <UiAutocomplete
+        Items="@availableFruits"
+        @bind-Value="selectedFruitName"
+        OnSelected="HandleFruitSelected" />
+</div>
+
+<p class="mt-3">
+    Texto actual en el input: <strong>@selectedFruitName</strong>
+</p>
+<p>
+    Última fruta seleccionada del listado: <strong>@lastSelectedFruit</strong>
+</p>
+
+
+@code {
+    private List<string> availableFruits = new List<string>
+    {
+        "Manzana", "Banana", "Cereza", "Dátil", "Fresa", "Uva", "Kiwi",
+        "Limón", "Mango", "Naranja", "Pera", "Piña", "Sandía", "Melón"
+    };
+
+    private string selectedFruitName = string.Empty;
+    private string lastSelectedFruit = "Ninguna";
+
+    private void HandleFruitSelected(string fruit)
+    {
+        lastSelectedFruit = fruit;
+        Console.WriteLine($"Fruta seleccionada: {fruit}");
+        // Puedes agregar lógica adicional aquí, como guardar la fruta en una base de datos
+        // o realizar alguna otra acción en tu componente padre.
+    }
+}
+```

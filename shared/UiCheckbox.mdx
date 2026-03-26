@@ -1,0 +1,111 @@
+¡Excelente! Analicemos este componente Blazor y generemos la documentación en formato MDX para Mintlify.
+
+```mdx
+export const title = 'UiCheckbox Componente';
+
+# UiCheckbox Componente
+
+## Propósito
+
+El componente `UiCheckbox` proporciona una implementación estándar de un checkbox, encapsulando la lógica de UI y el manejo de estado para una fácil reutilización en diferentes partes de la aplicación Blazor. Su objetivo principal es ofrecer un control de checkbox consistente y personalizable con soporte para binding de datos bidireccional (two-way binding).
+
+## Explicación Funcional
+
+Este componente Blazor renderiza un control de checkbox estándar utilizando elementos HTML nativos y clases de estilizado de Bootstrap. Su funcionalidad principal se basa en la definición de parámetros y el manejo de eventos para interactuar con el componente padre.
+
+### Parámetros
+
+El componente expone los siguientes parámetros para su configuración:
+
+*   **`Checked`** (`bool`):
+    *   Define si el checkbox está marcado (`true`) o desmarcado (`false`).
+    *   Es el valor inicial y el estado actual visible del componente.
+    *   Se utiliza en el binding bidireccional (ver `CheckedChanged`).
+*   **`CheckedChanged`** (`EventCallback<bool>`):
+    *   Un `EventCallback` que se invoca cuando el estado del checkbox cambia (es decir, cuando el usuario lo marca o desmarca).
+    *   Pasa el nuevo estado booleano (`true` o `false`) al componente padre.
+    *   Este `EventCallback` es crucial para implementar el binding bidireccional usando `@bind-Checked` desde un componente padre.
+*   **`Label`** (`string`):
+    *   La cadena de texto que se muestra junto al checkbox, sirviendo como su descripción.
+    *   Por defecto, su valor es una cadena vacía.
+
+### Manejo de Eventos
+
+1.  **Enlace de Evento:** El evento `@onchange` del elemento `<input type="checkbox">` está ligado al método `OnChange` definido en el bloque `@code` del componente.
+2.  **Extracción del Valor:** Cuando el checkbox cambia, el método `OnChange` recibe un `ChangeEventArgs`. Dentro de este método, se extrae el valor booleano del evento (`e.Value`). La lógica `e.Value is bool b ? b : e.Value?.ToString() == "true"` asegura una extracción robusta del valor, manejando casos donde `e.Value` podría ser un `bool` directo o una representación en `string`.
+3.  **Notificación al Padre:** Finalmente, el método `OnChange` invoca `await CheckedChanged.InvokeAsync(value);`. Esto dispara el `EventCallback` configurado, pasando el nuevo estado (`value`) al componente padre, lo que permite la actualización de la variable en el padre cuando se usa `@bind-Checked`.
+
+### Estilos
+
+El componente utiliza clases CSS de Bootstrap (`form-check`, `form-check-input`, `form-check-label`) para su estilizado, asegurando una apariencia consistente dentro de una aplicación que utiliza el framework Bootstrap.
+
+## Dependencias
+
+*   **Framework:** Blazor (parte de .NET).
+*   **Estilos:** Clases CSS de Bootstrap (se asume que Bootstrap está configurado y enlazado en el proyecto Blazor cliente).
+*   **Otras Dependencias:** No tiene dependencias directas de otros componentes Blazor o librerías externas más allá del framework.
+
+## Ejemplo de Uso
+
+Para utilizar el componente `UiCheckbox`, puedes declararlo en un componente padre y enlazar su propiedad `Checked` a una variable booleana local usando la sintaxis de binding bidireccional de Blazor (`@bind-Checked`). También puedes proporcionar una etiqueta personalizada.
+
+<CodeBlock lang="razor">
+@page "/example-checkbox"
+
+<h3>Demostración de UiCheckbox</h3>
+
+<div class="mb-3">
+    <UiCheckbox @bind-Checked="agreeToTerms" Label="He leído y acepto los términos y condiciones" />
+</div>
+
+<p>Estado actual: <strong>@(agreeToTerms ? "Aceptado" : "Pendiente")</strong></p>
+
+<div class="mt-4">
+    <button class="btn btn-primary" @onclick="SubmitForm" disabled="@(!agreeToTerms)">
+        Enviar Formulario
+    </button>
+    <button class="btn btn-secondary ms-2" @onclick="ToggleTerms">
+        Invertir Estado (Programa)
+    </button>
+</div>
+
+@code {
+    private bool agreeToTerms = false;
+
+    private void SubmitForm()
+    {
+        if (agreeToTerms)
+        {
+            // Lógica para enviar el formulario
+            Console.WriteLine("Formulario enviado con términos aceptados.");
+            // Aquí podrías navegar, guardar datos, etc.
+        }
+        else
+        {
+            Console.WriteLine("Debes aceptar los términos y condiciones para enviar.");
+        }
+    }
+
+    private void ToggleTerms()
+    {
+        agreeToTerms = !agreeToTerms;
+        Console.WriteLine($"Estado de 'agreeToTerms' cambiado a: {agreeToTerms}");
+    }
+}
+</CodeBlock>
+
+### Explicación del Ejemplo
+
+*   `@page "/example-checkbox"`: Define una ruta para acceder directamente a este componente de ejemplo.
+*   `private bool agreeToTerms = false;`: Declara una variable booleana en el componente padre para mantener el estado del checkbox.
+*   `<UiCheckbox @bind-Checked="agreeToTerms" Label="He leído y acepto los términos y condiciones" />`:
+    *   Instancia el componente `UiCheckbox`.
+    *   `@bind-Checked="agreeToTerms"` establece un binding bidireccional. Esto significa que:
+        *   El valor de `agreeToTerms` se pasa a la propiedad `Checked` del `UiCheckbox`.
+        *   Cuando el `UiCheckbox` invoca `CheckedChanged`, el nuevo valor se asigna automáticamente de vuelta a `agreeToTerms`.
+    *   `Label="He leído y acepto los términos y condiciones"`: Asigna el texto deseado a la etiqueta del checkbox.
+*   La sección de párrafo muestra dinámicamente el estado actual de la variable `agreeToTerms`.
+*   Los botones demuestran cómo interactuar con el estado del checkbox:
+    *   `SubmitForm`: Simula una acción que depende del estado del checkbox (el botón está deshabilitado si `agreeToTerms` es `false`).
+    *   `ToggleTerms`: Muestra cómo el componente padre puede cambiar programáticamente el estado del checkbox, lo que a su vez actualiza la UI del `UiCheckbox` gracias al binding.
+```
