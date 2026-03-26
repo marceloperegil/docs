@@ -1,0 +1,37 @@
+---
+title: Componentes Blazor
+---
+
+# Ejemplo de documentación de componentes
+
+## ¿Qué hace?
+Este archivo documenta componentes Blazor utilizados en la aplicación, explicando su propósito y uso.
+
+## ¿Cómo se usa?
+Importa y utiliza los componentes en las páginas Blazor (`.razor`). Consulta cada sección para detalles de uso.
+
+## Dependencias
+- Blazor WebAssembly
+- .NET 10 SDK
+
+## Ejemplo
+### Counter.razor
+
+```razor
+@page "/counter"
+
+<h1>Counter</h1>
+<p>Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+
+@code {
+    private int currentCount = 0;
+    private void IncrementCount() { currentCount++; }
+}
+```
+
+Componente de ejemplo que incrementa un contador al hacer clic en un botón.
+
+### Buenas prácticas
+- Mantener la lógica simple y comentada.
+- Usar métodos privados para la lógica interna.

@@ -1,0 +1,29 @@
+---
+title: Estructura del proyecto
+---
+
+# Estructura del proyecto
+
+## ¿Qué hace?
+Describe la organización de carpetas y archivos principales de la solución Blazor.
+
+## ¿Cómo se usa?
+Utiliza esta referencia para ubicar componentes, servicios y recursos dentro del proyecto.
+
+## Dependencias
+- Blazor WebAssembly
+- .NET 10 SDK
+
+## Ejemplo
+```
+LirmiDemoApp.Client/   # Proyecto Blazor WebAssembly
+LirmiDemoApp.Server/   # Backend (si aplica)
+LirmiDemoApp.Shared/   # Modelos y contratos compartidos
+```
+- **Pages/**: Componentes de página Blazor (`.razor`)
+- **Shared/**: Componentes reutilizables
+- **wwwroot/**: Archivos estáticos (CSS, imágenes, etc.)
+
+## Convenciones
+- Uso de comentarios explicativos en métodos y lógica relevante
+- Logging centralizado con `LogActivityHelper.AddUserActivityLog`

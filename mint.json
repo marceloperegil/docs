@@ -1,0 +1,21 @@
+{
+  "navigation": [
+    {
+      "group": "components",
+      "pages": [
+        "components/LirmiDemoApp-Components-Layout-NavMenu",
+        "components/components"
+      ]
+    },
+    "index",
+    {
+      "group": "pages",
+      "pages": [
+        "pages/LirmiDemoApp.Client-Pages-Counter",
+        "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
+        "pages/getting-started",
+        "pages/project-structure"
+      ]
+    }
+  ]
+}
