@@ -1,0 +1,20 @@
+razor
+@page "/skeleton-demo"
+
+<h3>Ejemplo de SkeletonComponent</h3>
+
+<h4>Esqueleto por defecto:</h4>
+<SkeletonComponent />
+
+<h4>Esqueleto para un título:</h4>
+<SkeletonComponent Width="80%" Height="30px" BorderRadius="8px" Color="#d0d0d0" />
+
+<h4>Esqueletos para un párrafo:</h4>
+<div style="display: flex; flex-direction: column; gap: 8px; width: 300px;">
+    <SkeletonComponent Width="100%" Height="15px" />
+    <SkeletonComponent Width="90%" Height="15px" />
+    <SkeletonComponent Width="95%" Height="15px" />
+</div>
+
+<h4>Esqueleto circular (avatar):</h4>
+<SkeletonComponent Width="50px" Height="50px" BorderRadius="50%" Color="#cccccc" />

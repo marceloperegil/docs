@@ -30,6 +30,7 @@
       {
         "group": "Shared",
         "pages": [
+          "shared/SkeletonComponent",
           "shared/UiAutocomplete",
           "shared/UiCheckbox",
           "shared/UiDatePicker",
