@@ -21,6 +21,7 @@
         "pages": [
           "pages/LirmiDemoApp.Client-Pages-Counter",
           "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
+          "pages/SkeletonPage",
           "pages/UiToolkitPage",
           "pages/getting-started",
           "pages/project-structure"
