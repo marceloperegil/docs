@@ -1,0 +1,59 @@
+¡Excelente! Como experto en documentación técnica, he analizado el archivo `SkeletonPage.razor` de tu aplicación Blazor y he generado la documentación en formato MDX, ideal para Mintlify.
+
+---
+
+```mdx
+---
+title: Página de Demostración de Componentes Skeleton
+description: Documentación para la página Blazor 'SkeletonPage.razor' que demuestra el uso del SkeletonComponent para mejorar la experiencia de usuario durante la carga de datos.
+---
+
+# Página de Demostración de Componentes Skeleton
+
+## Propósito
+
+Esta página Blazor (`LirmiDemoApp.Client/Pages/SkeletonPage.razor`) sirve como una demostración práctica de cómo utilizar el `SkeletonComponent` dentro de la aplicación. Su propósito principal es ilustrar la creación de *placeholders* visuales que mejoran la experiencia de usuario (UX) durante la carga de contenido asíncrono. Al mostrar estos "esqueletos" de contenido, se comunica al usuario que la interfaz no está "congelada" y que la información real está en proceso de carga, reduciendo la percepción de latencia y mejorando la fluidez de la interacción.
+
+## Explicación Funcional
+
+La página `SkeletonPage.razor` es una vista simple accesible a través de la ruta `/skeleton-demo`. Su función principal es renderizar varias instancias del `SkeletonComponent`. Cada instancia del `SkeletonComponent` actúa como un elemento de interfaz de usuario temporal que simula la forma y el tamaño de un componente que aún no ha cargado su contenido real.
+
+Este enfoque es fundamental en aplicaciones modernas donde la recuperación de datos es asíncrona. En lugar de mostrar espacios en blanco o indicadores de carga genéricos, los componentes esqueleto ofrecen una representación visual más contextual de lo que aparecerá una vez que los datos estén disponibles.
+
+El `SkeletonComponent` es altamente configurable, permitiendo a los desarrolladores simular diversos elementos de UI con precisión. En esta página de demostración, se utilizan los siguientes parámetros para cada instancia:
+
+*   **`Width`**: Define el ancho del elemento placeholder. Puede ser un valor absoluto (e.g., `200px`) o relativo (e.g., `100%`, `60%`).
+*   **`Height`**: Define la altura del elemento placeholder (e.g., `30px`, `16px`, `24px`).
+*   **`BorderRadius`**: Controla la curvatura de las esquinas del placeholder, permitiendo simular elementos cuadrados, redondeados o incluso circulares (e.g., `8px`, `4px`, `12px`).
+*   **`Color`**: Establece el color de fondo del placeholder, lo que ayuda a integrarlo estéticamente con el tema de la aplicación (e.g., `#bdbdbd`, `#e0e0e0`, `#cfd8dc`).
+
+Al combinar estos parámetros, la página muestra cómo se pueden crear diferentes formas de esqueleto para representar títulos, párrafos, imágenes o cualquier otro elemento de la interfaz.
+
+## Dependencias
+
+### Componentes
+
+*   **`SkeletonComponent`**: Este componente Blazor personalizado es la pieza central de esta página. Está diseñado específicamente para actuar como un placeholder visual.
+
+### Namespaces
+
+*   **`LirmiDemoApp.Client.Shared`**: Este namespace se importa explícitamente (`@using LirmiDemoApp.Client.Shared`) para hacer que el `SkeletonComponent` sea accesible y utilizable dentro de la página `SkeletonPage.razor`. Esto indica que la definición del `SkeletonComponent` reside probablemente en el directorio `Shared` del proyecto `LirmiDemoApp.Client`.
+
+## Ejemplo de Uso
+
+El siguiente fragmento de código muestra cómo se declara y se utiliza el `SkeletonComponent` dentro de la página `SkeletonPage.razor`, configurando múltiples placeholders con diferentes tamaños, formas y colores para simular distintos elementos de la interfaz de usuario:
+
+```razor
+@page "/skeleton-demo"
+
+@using LirmiDemoApp.Client.Shared
+
+<h3>Demo Skeleton</h3>
+
+<SkeletonComponent Width="200px" Height="30px" BorderRadius="8px" Color="#bdbdbd" />
+<SkeletonComponent Width="100%" Height="16px" BorderRadius="4px" Color="#e0e0e0" />
+<SkeletonComponent Width="60%" Height="24px" BorderRadius="12px" Color="#cfd8dc" />
+```
+
+Este ejemplo ilustra la flexibilidad del `SkeletonComponent` para adaptarse a diversas necesidades de diseño de interfaz, permitiendo una representación visual convincente de una experiencia de carga.
+```

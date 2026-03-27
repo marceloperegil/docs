@@ -1,0 +1,63 @@
+¡Excelente! Como experto en documentación técnica, analizaré este archivo de Blazor para generar una documentación MDX clara y concisa, ideal para Mintlify.
+
+---
+
+```mdx
+---
+title: Demo Table Page
+description: Displays a demonstration table using the DemoTable shared component.
+---
+
+# Demo Table Page (`DemoTablePage.razor`)
+
+## Propósito
+
+El componente `DemoTablePage` sirve como una página Blazor dedicada para mostrar una tabla de demostración simple. Su objetivo principal es actuar como un contenedor para el componente re utilizable `<DemoTable />`, proporcionando una URL específica dentro de la aplicación para su visualización.
+
+## Explicación Funcional
+
+Este archivo Razor define una página Blazor que encapsula la presentación de una tabla de datos de demostración.
+
+1.  **Directiva `@page "/demo-table"`**: Esta directiva establece la ruta de navegación para esta página. Cuando un usuario accede a `/demo-table` en la aplicación, este componente es cargado y renderizado.
+2.  **Directiva `@using LirmiDemoApp.Client.Shared`**: Importa el namespace `LirmiDemoApp.Client.Shared`. Esto permite que la página utilice componentes o clases definidas en ese namespace sin tener que especificar su nombre completo. En este caso, es crucial para poder referenciar el componente `<DemoTable />`.
+3.  **Elemento `<h3>Demo Tabla de 10 Registros</h3>`**: Es un encabezado HTML estándar que proporciona un título descriptivo para la página, indicando el contenido que se va a mostrar al usuario.
+4.  **Componente `<DemoTable />`**: Este es el corazón de la página. `<DemoTable />` es otro componente Blazor (presumiblemente definido dentro del namespace `LirmiDemoApp.Client.Shared`) que es instanciado y renderizado en esta ubicación. Se espera que este componente sea el encargado de construir y mostrar la tabla con los 10 registros de demostración, basándose en el título de la página. La `DemoTablePage` simplemente se encarga de presentarlo en una ruta accesible.
+
+En resumen, la `DemoTablePage` actúa como una envoltura y un punto de entrada para el componente `DemoTable`, haciendo que la tabla de demostración sea accesible a través de una URL específica.
+
+## Dependencias
+
+Este componente tiene las siguientes dependencias clave:
+
+*   **`LirmiDemoApp.Client.Shared` Namespace**: Para acceder al componente `DemoTable`.
+*   **`DemoTable` Component**: El componente principal que es renderizado en esta página y se encarga de la lógica y la UI de la tabla de demostración. Se espera que este componente resida en el directorio `Shared` del proyecto `LirmiDemoApp.Client`.
+*   **Blazor Framework**: Para el enrutamiento (`@page`) y la composición de componentes.
+
+## Ejemplo de Uso
+
+Dado que `DemoTablePage.razor` es un componente de página, su uso principal es a través de la navegación en la aplicación Blazor.
+
+### Acceso Directo (URL)
+
+Los usuarios pueden acceder a esta página directamente navegando a la siguiente URL en la aplicación:
+
+```bash
+http://localhost:5000/demo-table
+# (o la URL base de tu aplicación seguida de /demo-table)
+```
+
+### Integración en un Menú de Navegación
+
+Típicamente, un enlace a esta página se incluiría en el `NavMenu.razor` o en cualquier otro componente de navegación de la aplicación:
+
+```razor
+<!-- LirmiDemoApp.Client/Shared/NavMenu.razor (ejemplo) -->
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="demo-table">
+        <span class="bi bi-table" aria-hidden="true"></span> Demo Tabla
+    </NavLink>
+</div>
+```
+
+Al hacer clic en el enlace "Demo Tabla", la aplicación navegará a la ruta `/demo-table` y mostrará el contenido de `DemoTablePage`, que a su vez renderizará el componente `<DemoTable />`.
+```
