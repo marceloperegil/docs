@@ -1,7 +1,12 @@
-Se realizaron los siguientes cambios clave en la aplicación Blazor:
+Se realizaron los siguientes cambios clave para implementar la manipulación de texto entre componentes Blazor:
 
-1.  **`LirmiDemoApp.Client/Pages/TextTestPageComponent.razor`**: Se añadió una nueva página (`TextTestPageComponent`) al cliente Blazor, presumiblemente para implementar y probar funcionalidades relacionadas con el manejo o visualización de texto.
-2.  **`LirmiDemoApp.Client/Shared/CalculatorComponent.razor`**: Se implementó un nuevo componente de interfaz de usuario compartido (`CalculatorComponent`), dotándolo de la lógica y la UI necesarias para operar como una calculadora interactiva.
-3.  **`LirmiDemoApp/Components/Layout/NavMenu.razor`**: El menú de navegación principal (`NavMenu`) fue actualizado para incluir enlaces a estas nuevas funcionalidades, asegurando que tanto la página de prueba de texto como el componente de calculadora sean accesibles desde la UI.
+1.  **`LirmiDemoApp.Client/Pages/TextTestPageComponent.razor`**:
+    *   Se actualizó para incluir un campo de entrada (`<input type="text">`) que permite al usuario ingresar texto.
+    *   Captura el texto ingresado y lo pasa como un parámetro (`TextToManipulate`) a una instancia de `TextManipulatorComponent`.
 
-Estos cambios introducen nuevas características y componentes reutilizables en la aplicación.
+2.  **`LirmiDemoApp.Client/Shared/TextManipulatorComponent.razor`**:
+    *   Se creó este componente compartido, el cual expone un `[Parameter]` llamado `TextToManipulate`.
+    *   En el método `OnParametersSet()`, el componente toma el valor de `TextToManipulate`, lo convierte a mayúsculas y almacena el resultado.
+    *   Finalmente, renderiza tanto el texto original recibido como su versión en mayúsculas.
+
+En resumen, se estableció un flujo donde un componente de página recolecta una entrada de texto y la delega a un componente compartido para su procesamiento (conversión a mayúsculas) y visualización.

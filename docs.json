@@ -39,6 +39,7 @@
         "pages": [
           "shared/CalculatorComponent",
           "shared/SkeletonComponent",
+          "shared/TextManipulatorComponent",
           "shared/UiAutocomplete",
           "shared/UiCheckbox",
           "shared/UiDatePicker",
