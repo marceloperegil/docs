@@ -22,6 +22,7 @@
           "pages/LirmiDemoApp.Client-Pages-Counter",
           "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
           "pages/SkeletonPage",
+          "pages/TextTestPageComponent",
           "pages/UiToolkitPage",
           "pages/getting-started",
           "pages/project-structure"
