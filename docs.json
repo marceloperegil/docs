@@ -12,6 +12,12 @@
       {
         "group": "Components",
         "pages": [
+          {
+            "group": "Layout",
+            "pages": [
+              "components/Layout/NavMenu"
+            ]
+          },
           "components/LirmiDemoApp-Components-Layout-NavMenu",
           "components/components"
         ]
@@ -31,6 +37,7 @@
       {
         "group": "Shared",
         "pages": [
+          "shared/CalculatorComponent",
           "shared/SkeletonComponent",
           "shared/UiAutocomplete",
           "shared/UiCheckbox",
