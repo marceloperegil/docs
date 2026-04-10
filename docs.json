@@ -25,6 +25,7 @@
               "pages/Counter",
               "pages/DemoTablePage",
               "pages/FormPage",
+              "pages/SkeletonPage",
               "pages/UiToolkitPage",
               "pages/getting-started",
               "pages/project-structure"

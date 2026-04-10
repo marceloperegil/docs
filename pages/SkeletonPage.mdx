@@ -1,0 +1,100 @@
+---
+title: "SkeletonPage"
+description: "Página de demostración para componentes Skeleton en Blazor, utilizada para mostrar elementos de carga de manera visual."
+sidebarTitle: "SkeletonPage"
+icon: "browser"
+---
+
+## Propósito
+
+La página `SkeletonPage` sirve como una demostración de los componentes Skeleton en una aplicación Blazor. Los componentes Skeleton son útiles para mejorar la experiencia del usuario al mostrar marcadores de posición visuales mientras se cargan los datos reales. Esto es especialmente importante en aplicaciones con tiempos de carga prolongados o en situaciones donde los datos se obtienen de fuentes externas, como APIs o bases de datos.
+
+## Arquitectura y Funcionamiento
+
+La página `SkeletonPage` utiliza el componente `SkeletonComponent` para renderizar marcadores de posición con diferentes estilos y tamaños. A continuación, se detalla su funcionamiento:
+
+### Ciclo de vida
+
+La página no implementa métodos específicos del ciclo de vida de Blazor como `OnInitialized` o `OnParametersSet`. Su propósito es únicamente renderizar los componentes Skeleton de manera estática.
+
+### Renderizado condicional
+
+No se utiliza lógica de renderizado condicional en esta página, ya que los componentes Skeleton se renderizan directamente en el markup.
+
+### Manejo de estado
+
+La página no maneja estado interno ni utiliza propiedades o variables locales. Los valores de los componentes Skeleton son definidos directamente en el markup.
+
+### Manejo de eventos
+
+No se manejan eventos en esta página. Los componentes Skeleton son puramente visuales y no interactúan con el usuario.
+
+### Flujo de datos
+
+Los datos de configuración de los componentes Skeleton (como `Width`, `Height`, `BorderRadius` y `Color`) se pasan como parámetros directamente en el markup. No hay transformación ni salida de datos.
+
+## Parámetros
+
+| Parámetro      | Tipo   | Obligatorio | Valor por defecto | Descripción                                                                 |
+|----------------|--------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Width`        | string | Sí          | N/A               | Define el ancho del componente Skeleton. Puede ser en píxeles o porcentaje. |
+| `Height`       | string | Sí          | N/A               | Define la altura del componente Skeleton. Puede ser en píxeles o porcentaje.|
+| `BorderRadius` | string | No          | `0px`             | Define el radio de borde del componente Skeleton para darle esquinas redondeadas. |
+| `Color`        | string | No          | `#e0e0e0`         | Define el color del componente Skeleton. Se utiliza para personalizar el estilo. |
+
+## Dependencias
+
+- **Namespaces**:  
+  - `@using LirmiDemoApp.Client.Shared`: Necesario para acceder al componente `SkeletonComponent`.
+  
+- **Componentes hijos**:  
+  - `SkeletonComponent`: Utilizado para renderizar los marcadores de posición visuales.
+
+- **Servicios inyectados**:  
+  - Ninguno.
+
+- **Paquetes NuGet**:  
+  - Ninguno.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+<CodeGroup.Entry title="Básico">
+```razor
+@page "/skeleton-demo"
+@using LirmiDemoApp.Client.Shared
+
+<h3>Demo Skeleton</h3>
+
+<SkeletonComponent Width="100px" Height="30px" BorderRadius="8px" Color="#bdbdbd" />
+<SkeletonComponent Width="90%" Height="16px" BorderRadius="4px" Color="#e0e0e0" />
+<SkeletonComponent Width="50%" Height="24px" BorderRadius="12px" Color="#cfd8dc" />
+```
+</CodeGroup.Entry>
+<CodeGroup.Entry title="Personalizado">
+```razor
+@page "/custom-skeleton-demo"
+@using LirmiDemoApp.Client.Shared
+
+<h3>Skeleton Personalizado</h3>
+
+<SkeletonComponent Width="200px" Height="40px" BorderRadius="20px" Color="#ffcccb" />
+<SkeletonComponent Width="80%" Height="20px" BorderRadius="10px" Color="#add8e6" />
+<SkeletonComponent Width="60%" Height="30px" BorderRadius="15px" Color="#90ee90" />
+```
+</CodeGroup.Entry>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+Los componentes Skeleton son ideales para mejorar la percepción de velocidad en aplicaciones con tiempos de carga prolongados.
+</Note>
+
+<Tip>
+Utiliza porcentajes para los valores de `Width` y `Height` cuando desees que los componentes Skeleton se adapten dinámicamente al tamaño del contenedor.
+</Tip>
+
+<Warning>
+Evita usar colores demasiado oscuros o brillantes en el parámetro `Color`, ya que pueden distraer al usuario y dificultar la experiencia visual.
+</Warning>

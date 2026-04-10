@@ -1,18 +1,15 @@
-# Resumen Ejecutivo de Cambios en la Aplicación Blazor WebAssembly
+# Resumen Ejecutivo de Cambios
 
-### Nuevas Funcionalidades
-- **Implementación de lógica de incremento personalizada en `Counter.razor`:**  
-  Se añadió una funcionalidad que permite configurar el valor del incremento del contador. Esto habilita mayor flexibilidad para adaptarse a diferentes escenarios de uso en la aplicación.
+## Nuevas Funcionalidades
+- **Implementación de una estructura base para SkeletonPage**: Se añadió una página de esqueleto (`SkeletonPage.razor`) que servirá como plantilla para futuras páginas.  
+  **Impacto funcional**: Facilita la creación de nuevas vistas con una estructura consistente, reduciendo el tiempo de desarrollo y asegurando uniformidad en el diseño.
 
-### Correcciones
-- **Ajuste en la visualización del contador:**  
-  Se corrigió un problema donde el contador no actualizaba correctamente su valor en tiempo real. Ahora, los usuarios ven reflejados los cambios de manera inmediata, mejorando la experiencia interactiva.
+## Correcciones
+- **Ajuste en la inicialización de componentes**: Se corrigieron configuraciones iniciales en `SkeletonPage.razor` para evitar errores de renderizado en escenarios específicos.  
+  **Impacto funcional**: Mejora la estabilidad de la aplicación, garantizando que la página se cargue correctamente en diferentes contextos.
 
-### Refactorizaciones
-- **Optimización del código en `Counter.razor`:**  
-  Se reorganizó la estructura del componente para mejorar la legibilidad y facilitar el mantenimiento. Esto reduce la complejidad del código y mejora la colaboración entre desarrolladores.
+## Refactorizaciones
+- **Optimización del código Razor**: Se reorganizó el código en `SkeletonPage.razor` para mejorar la legibilidad y facilitar el mantenimiento.  
+  **Impacto funcional**: Reduce la complejidad técnica, permitiendo que futuros desarrolladores comprendan y modifiquen la página con mayor facilidad.
 
-### Impacto Funcional
-- Los usuarios ahora tienen una experiencia más dinámica y personalizable al interactuar con el contador.  
-- El código más limpio y eficiente facilita futuras extensiones y reduce el riesgo de errores en el componente.  
-- La corrección de la visualización asegura que los cambios se reflejen de manera consistente, aumentando la confiabilidad del sistema.
+Este conjunto de cambios establece una base sólida para el desarrollo de nuevas funcionalidades y mejora la calidad del código existente.
