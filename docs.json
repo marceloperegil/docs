@@ -1,5 +1,6 @@
 {
-  "name": "Documentación Automática",
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Lirmi Demo App - Documentación",
   "theme": "mint",
   "favicon": "/favicon.png",
   "colors": {
@@ -7,46 +8,25 @@
     "light": "#10B981",
     "dark": "#047857"
   },
-  "navigation": {
-    "groups": [
-      {
-        "group": "Components",
-        "pages": [
-          {
-            "group": "Layout",
-            "pages": [
-              "components/Layout/NavMenu"
-            ]
-          },
-          "components/LirmiDemoApp-Components-Layout-NavMenu",
-          "components/components"
-        ]
-      },
-      {
-        "group": "Pages",
-        "pages": [
-          "pages/LirmiDemoApp.Client-Pages-Counter",
-          "pages/LirmiDemoApp.Client-Pages-DemoTablePage",
-          "pages/SkeletonPage",
-          "pages/TextTestPageComponent",
-          "pages/UiToolkitPage",
-          "pages/getting-started",
-          "pages/project-structure"
-        ]
-      },
-      {
-        "group": "Shared",
-        "pages": [
-          "shared/CalculatorComponent",
-          "shared/SkeletonComponent",
-          "shared/TextManipulatorComponent",
-          "shared/UiAutocomplete",
-          "shared/UiCheckbox",
-          "shared/UiDatePicker",
-          "shared/UiSelector",
-          "shared/UiSwitch"
-        ]
-      }
-    ]
-  }
+  "navigation": [
+    {
+      "group": "Inicio",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "group": "Components",
+      "pages": [
+        "components/components"
+      ]
+    },
+    {
+      "group": "Pages",
+      "pages": [
+        "pages/getting-started",
+        "pages/project-structure"
+      ]
+    }
+  ]
 }
