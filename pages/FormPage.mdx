@@ -1,0 +1,100 @@
+---
+title: "Formulario para nueva aplicación"
+description: "Página Blazor que permite la creación de una nueva aplicación mediante un formulario interactivo y dinámico."
+sidebarTitle: "FormPage"
+icon: "browser"
+---
+
+## Propósito
+
+La página `FormPage` proporciona un formulario interactivo para la creación de una nueva aplicación. Este formulario permite a los usuarios ingresar información personal y de configuración, como nombre, correo electrónico, edad, país, rol, fecha de nacimiento, rango de disponibilidad y preferencias. Es esencial para recopilar datos estructurados de los usuarios y procesarlos en el sistema de la aplicación.
+
+## Arquitectura y Funcionamiento
+
+### Ciclo de vida
+
+- **OnInitialized**: Inicializa el modelo del formulario y las opciones de selección (países y roles).
+- **OnSubmitAsync**: Maneja el evento de envío del formulario, mostrando un mensaje de confirmación.
+- **OnReset**: Restablece el formulario a su estado inicial.
+
+### Lógica de renderizado condicional
+
+- Se utiliza un bloque `@if` para mostrar un mensaje de acción (`lastActionMessage`) solo cuando no está vacío.
+
+### Manejo de estado
+
+- **Variables y propiedades**:
+  - `formModel`: Contiene los datos del formulario.
+  - `countryOptions` y `roleOptions`: Listas de opciones para los campos de selección.
+  - `lastActionMessage`: Mensaje que se muestra después de realizar una acción.
+
+- **Eventos**:
+  - Métodos como `OnCountryChanged`, `OnRoleChanged`, etc., actualizan el estado del modelo del formulario en respuesta a interacciones del usuario.
+
+### Flujo de datos
+
+- **Entrada**: Los datos se ingresan mediante componentes como `InputText`, `InputNumber`, y componentes personalizados (`UiAutocomplete`, `UiSelector`, etc.).
+- **Transformación**: Los métodos asociados a los eventos actualizan las propiedades del modelo del formulario.
+- **Salida**: Al enviar el formulario, se genera un mensaje de confirmación que se muestra en la interfaz.
+
+## Parámetros
+
+| Parámetro                | Tipo       | Obligatorio | Valor por defecto | Descripción                                                                 |
+|--------------------------|------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| Name                     | `string`   | Sí          | `""`              | Nombre del usuario.                                                        |
+| Email                    | `string`   | Sí          | `""`              | Correo electrónico del usuario.                                            |
+| Age                      | `int?`     | No          | `null`            | Edad del usuario.                                                          |
+| Country                  | `string`   | No          | `""`              | País seleccionado por el usuario.                                          |
+| Role                     | `string`   | No          | `"teacher"`       | Rol del usuario en el sistema.                                             |
+| BirthDate                | `DateTime?`| No          | `DateTime.Today.AddYears(-18)` | Fecha de nacimiento del usuario.                                           |
+| AvailableFrom            | `DateTime?`| No          | `DateTime.Today`  | Fecha de inicio de disponibilidad.                                         |
+| AvailableTo              | `DateTime?`| No          | `DateTime.Today.AddDays(7)` | Fecha de fin de disponibilidad.                                            |
+| ReceiveNotifications     | `bool`     | No          | `false`           | Indica si el usuario desea recibir notificaciones.                         |
+| IsActive                 | `bool`     | No          | `true`            | Indica si el usuario está activo.                                          |
+
+## Dependencias
+
+- **Namespaces**:
+  - `@using LirmiDemoApp.Client.Shared`: Importa componentes compartidos como `UiAutocomplete`, `UiSelector`, etc.
+
+- **Componentes hijos**:
+  - `UiAutocomplete`: Campo de autocompletado para seleccionar un país.
+  - `UiSelector`: Selector para elegir un rol.
+  - `UiDatePicker`: Selector de fecha.
+  - `UiDateRangePicker`: Selector de rango de fechas.
+  - `UiSwitch`: Interruptores para opciones booleanas.
+
+- **Servicios inyectados**:
+  - No se utilizan servicios inyectados en este componente.
+
+- **Paquetes NuGet**:
+  - No se mencionan paquetes externos en este archivo.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+<CodeGroup.Entry title="Básico">
+```razor
+<FormPage />
+```
+</CodeGroup.Entry>
+<CodeGroup.Entry title="Con datos iniciales">
+```razor
+<FormPage formModel="@new FormModel { Name = 'Juan', Email = 'juan@ejemplo.com' }" />
+```
+</CodeGroup.Entry>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El formulario utiliza componentes personalizados como `UiAutocomplete` y `UiSelector`, lo que permite una mayor flexibilidad y personalización en la interfaz.
+</Note>
+
+<Warning>
+Evite realizar operaciones intensivas en los métodos de manejo de eventos, ya que pueden afectar el rendimiento de la aplicación.
+</Warning>
+
+<Tip>
+Utilice valores predeterminados en el modelo del formulario para mejorar la experiencia del usuario y reducir errores de entrada.
+</Tip>

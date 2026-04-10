@@ -18,6 +18,7 @@
     {
       "group": "Pages",
       "pages": [
+        "pages/FormPage",
         "pages/getting-started",
         "pages/project-structure"
       ]
