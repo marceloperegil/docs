@@ -22,6 +22,8 @@
           {
             "group": "Pages",
             "pages": [
+              "pages/Counter",
+              "pages/DemoTablePage",
               "pages/FormPage",
               "pages/getting-started",
               "pages/project-structure"
@@ -31,6 +33,18 @@
             "group": "Components",
             "pages": [
               "components/components"
+            ]
+          },
+          {
+            "group": "Shared",
+            "pages": [
+              "shared/DemoTable"
+            ]
+          },
+          {
+            "group": "Misc",
+            "pages": [
+              "_summary"
             ]
           }
         ]
