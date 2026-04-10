@@ -1,0 +1,134 @@
+---
+title: "Componente UiAutocomplete"
+description: "Componente Blazor reutilizable para autocompletar entradas de texto basado en una lista de opciones."
+sidebarTitle: "UiAutocomplete"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiAutocomplete` proporciona una funcionalidad de autocompletado para entradas de texto, permitiendo a los usuarios buscar y seleccionar elementos de una lista predefinida. Es especialmente útil en formularios o interfaces donde se requiere filtrar y seleccionar opciones rápidamente, mejorando la experiencia del usuario al reducir la necesidad de escribir texto completo.
+
+Este componente es ideal para escenarios como:
+- Formularios de búsqueda.
+- Selección de elementos en listas largas.
+- Interfaces donde se requiere una entrada rápida y precisa.
+
+## Arquitectura y Funcionamiento
+
+El componente `UiAutocomplete` sigue un flujo lógico que incluye el manejo de parámetros, eventos y renderizado condicional. A continuación, se detalla su funcionamiento:
+
+### Ciclo de Vida
+
+1. **OnParametersSet**:
+   - Inicializa el texto de búsqueda (`searchText`) con el valor del parámetro `Value`.
+   - Limpia la lista de elementos filtrados (`filteredItems`).
+
+### Lógica de Renderizado
+
+- Renderiza un campo de entrada de texto (`InputText`) que permite al usuario escribir.
+- Si hay elementos filtrados (`filteredItems`), se muestra una lista desplegable con las opciones que coinciden con el texto ingresado.
+
+### Manejo de Estado
+
+- **Variables internas**:
+  - `searchText`: Almacena el texto ingresado por el usuario.
+  - `filteredItems`: Contiene los elementos que coinciden con el texto ingresado.
+- **Propiedades**:
+  - `Items`: Lista completa de opciones disponibles.
+  - `Value`: Valor seleccionado actualmente.
+
+### Manejo de Eventos
+
+1. **@oninput**:
+   - Invoca el método `OnInput` cada vez que el usuario escribe en el campo de texto.
+   - Filtra los elementos de la lista `Items` según el texto ingresado.
+   - Invoca el callback `ValueChanged` para notificar cambios en el valor.
+
+2. **@onclick**:
+   - Invoca el método `SelectItem` cuando el usuario selecciona un elemento de la lista.
+   - Actualiza el texto de búsqueda y limpia la lista de elementos filtrados.
+   - Invoca los callbacks `ValueChanged` y `OnSelected` para notificar el elemento seleccionado.
+
+### Flujo de Datos
+
+1. **Entrada**:
+   - `Items`: Lista de opciones disponibles.
+   - `Value`: Valor inicial del campo de texto.
+2. **Transformación**:
+   - Filtrado de `Items` basado en el texto ingresado.
+3. **Salida**:
+   - Notificación de cambios a través de los callbacks `ValueChanged` y `OnSelected`.
+
+## Parámetros
+
+| Parámetro     | Tipo           | Obligatorio | Valor por defecto | Descripción                                                                 |
+|---------------|----------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Items`       | `List<string>` | Sí          | `new List<string>()` | Lista de opciones disponibles para el autocompletado.                      |
+| `Value`       | `string`       | No          | `null`            | Valor inicial del campo de texto.                                          |
+| `ValueChanged`| `EventCallback<string>` | No | `null`            | Callback que se invoca cuando el valor del campo de texto cambia.          |
+| `OnSelected`  | `EventCallback<string>` | No | `null`            | Callback que se invoca cuando el usuario selecciona un elemento de la lista.|
+
+## Dependencias
+
+- **Namespaces**:
+  - `Microsoft.AspNetCore.Components`: Necesario para el uso de componentes Blazor y eventos.
+- **Componentes hijos**:
+  - `InputText`: Utilizado para capturar la entrada de texto del usuario.
+- **Servicios inyectados**:
+  - Ninguno.
+- **Paquetes NuGet**:
+  - Ninguno.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Tab title="Básico">
+```razor
+<UiAutocomplete 
+    Items="new List<string> { "Manzana", "Banana", "Cereza", "Durazno" }" 
+    Value="Manzana" 
+    ValueChanged="@(value => Console.WriteLine($"Valor cambiado: {value}"))" 
+    OnSelected="@(item => Console.WriteLine($"Elemento seleccionado: {item}"))" />
+```
+  </CodeGroup.Tab>
+  <CodeGroup.Tab title="Avanzado">
+```razor
+<UiAutocomplete 
+    Items="ListaDeFrutas" 
+    Value="@ValorSeleccionado" 
+    ValueChanged="OnValueChanged" 
+    OnSelected="OnItemSelected" />
+
+@code {
+    private List<string> ListaDeFrutas = new() { "Manzana", "Banana", "Cereza", "Durazno" };
+    private string ValorSeleccionado;
+
+    private void OnValueChanged(string value)
+    {
+        ValorSeleccionado = value;
+        Console.WriteLine($"Nuevo valor: {value}");
+    }
+
+    private void OnItemSelected(string item)
+    {
+        Console.WriteLine($"Fruta seleccionada: {item}");
+    }
+}
+```
+  </CodeGroup.Tab>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El componente utiliza un enfoque basado en eventos para manejar los cambios en el valor y las selecciones. Esto permite una integración flexible con otros componentes o servicios.
+</Note>
+
+<Tip>
+Para mejorar el rendimiento en listas grandes, considera implementar una paginación o un mecanismo de carga diferida (lazy loading) en lugar de filtrar todos los elementos en el cliente.
+</Tip>
+
+<Warning>
+El componente no incluye validación de entrada. Si se requiere validación, debe implementarse externamente o extenderse el componente.
+</Warning>

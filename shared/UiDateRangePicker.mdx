@@ -1,0 +1,118 @@
+---
+title: "Selector de Rango de Fechas (UiDateRangePicker)"
+description: "Componente Blazor reutilizable para seleccionar un rango de fechas con manejo de eventos y validaciones básicas."
+sidebarTitle: "UiDateRangePicker"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiDateRangePicker` permite a los usuarios seleccionar un rango de fechas compuesto por una fecha de inicio y una fecha de fin. Es útil en escenarios donde se requiere filtrar datos o realizar operaciones basadas en un intervalo de tiempo, como reportes, análisis o configuraciones de eventos. Este componente asegura que la fecha de fin no pueda seleccionarse antes de que se haya definido una fecha de inicio, mejorando la experiencia del usuario y reduciendo errores.
+
+## Arquitectura y Funcionamiento
+
+El componente está diseñado para ser reutilizable y fácil de integrar en cualquier aplicación Blazor. A continuación, se detalla su funcionamiento interno:
+
+### Ciclo de Vida
+
+- **Inicialización:**  
+  Los valores iniciales de las fechas (`StartDate` y `EndDate`) se establecen en el código del componente con valores predeterminados (`DateTime.Today` y `DateTime.Today.AddDays(7)` respectivamente).
+
+- **Actualización de Parámetros:**  
+  Los cambios en las propiedades `StartDate` y `EndDate` se manejan a través de los eventos `ValueChanged` de los controles `InputDate`. Estos eventos disparan métodos que invocan los `EventCallback` asociados para notificar a los componentes padres.
+
+### Lógica de Renderizado Condicional
+
+- El campo de fecha de fin (`EndDate`) está deshabilitado si no se ha seleccionado una fecha de inicio (`StartDate == null`). Esto asegura que el usuario no pueda seleccionar una fecha de fin sin antes definir una fecha de inicio.
+
+### Manejo de Estado
+
+- **Propiedades:**  
+  - `StartDate` y `EndDate` son propiedades públicas marcadas con `[Parameter]` para recibir valores desde el componente padre.
+  - Los valores predeterminados son configurados internamente para evitar valores nulos iniciales.
+
+- **Eventos:**  
+  - `StartDateChanged` y `EndDateChanged` son `EventCallback` que permiten notificar al componente padre sobre los cambios en las fechas seleccionadas.
+
+### Manejo de Eventos
+
+- **OnStartDateChangedHandler:**  
+  Invocado cuando el usuario selecciona una nueva fecha de inicio. Este método actualiza el estado interno y notifica al componente padre mediante `StartDateChanged`.
+
+- **OnEndDateChangedHandler:**  
+  Similar al anterior, pero para la fecha de fin. Este método también se asegura de que el evento solo se dispare si la fecha de inicio ya está definida.
+
+### Flujo de Datos
+
+1. Los valores iniciales de `StartDate` y `EndDate` son establecidos por el componente padre o toman los valores predeterminados.
+2. Cuando el usuario selecciona una fecha, los métodos `OnStartDateChangedHandler` o `OnEndDateChangedHandler` se ejecutan.
+3. Los cambios se propagan al componente padre mediante los `EventCallback`.
+
+## Parámetros
+
+| Parámetro         | Tipo       | Obligatorio | Valor por defecto     | Descripción                                                                 |
+|-------------------|------------|:-----------:|-----------------------|-----------------------------------------------------------------------------|
+| `StartDate`       | `DateTime?`| No          | `DateTime.Today`      | Fecha de inicio seleccionada.                                              |
+| `StartDateChanged`| `EventCallback<DateTime?>` | No | N/A                   | Callback para notificar cambios en la fecha de inicio.                     |
+| `EndDate`         | `DateTime?`| No          | `DateTime.Today.AddDays(7)` | Fecha de fin seleccionada.                                                 |
+| `EndDateChanged`  | `EventCallback<DateTime?>` | No | N/A                   | Callback para notificar cambios en la fecha de fin.                        |
+
+## Dependencias
+
+- **Namespaces:**  
+  - `Microsoft.AspNetCore.Components` para el uso de `[Parameter]` y `EventCallback`.
+  - `Microsoft.AspNetCore.Components.Forms` para los controles `InputDate`.
+
+- **Componentes Hijos:**  
+  - `InputDate`: Utilizado para la selección de fechas.
+
+- **Servicios Inyectados:**  
+  Este componente no utiliza servicios inyectados.
+
+- **Paquetes NuGet:**  
+  No requiere paquetes externos adicionales.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Entry title="Básico" active>
+
+```razor
+<UiDateRangePicker 
+    StartDate="@startDate" 
+    StartDateChanged="OnStartDateChanged" 
+    EndDate="@endDate" 
+    EndDateChanged="OnEndDateChanged" />
+
+@code {
+    private DateTime? startDate = DateTime.Today;
+    private DateTime? endDate = DateTime.Today.AddDays(7);
+
+    private void OnStartDateChanged(DateTime? date)
+    {
+        startDate = date;
+    }
+
+    private void OnEndDateChanged(DateTime? date)
+    {
+        endDate = date;
+    }
+}
+```
+
+  </CodeGroup.Entry>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Tip>
+Evita establecer valores predeterminados de `StartDate` y `EndDate` que no tengan sentido lógico, como una fecha de fin anterior a la de inicio.
+</Tip>
+
+<Warning>
+El componente no valida automáticamente que la fecha de fin sea posterior a la de inicio. Esta validación debe implementarse en el componente padre si es necesaria.
+</Warning>
+
+<Note>
+Para mejorar el rendimiento, asegúrate de que los `EventCallback` no ejecuten operaciones costosas o bloqueantes.
+</Note>

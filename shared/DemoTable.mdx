@@ -1,0 +1,70 @@
+---
+title: "Componente DemoTable"
+description: "Un componente Blazor reutilizable para mostrar datos tabulares generados dinámicamente."
+sidebarTitle: "DemoTable"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `DemoTable` es un componente Blazor reutilizable diseñado para mostrar datos tabulares generados dinámicamente. Este componente es útil en aplicaciones donde se requiere presentar información estructurada en formato de tabla, como listados de registros, reportes o datos administrativos. En este caso, el componente genera automáticamente una lista de elementos de ejemplo con propiedades como `Id`, `Nombre` y `Descripción`, lo que lo hace ideal para demostraciones o prototipos.
+
+## Arquitectura y Funcionamiento
+
+El componente `DemoTable` sigue un flujo sencillo pero efectivo para generar y renderizar datos tabulares. A continuación, se detalla su funcionamiento interno:
+
+### Ciclo de Vida
+
+- **OnInitialized**: Durante esta fase del ciclo de vida, el componente inicializa una lista de elementos (`items`) y genera dinámicamente 20 registros de ejemplo. Cada registro contiene un `Id`, un `Nombre` y una `Descripción`.
+
+### Lógica de Renderizado
+
+- El componente utiliza un bucle `@foreach` para iterar sobre la lista de elementos (`items`) y renderizar cada registro como una fila (`<tr>`) dentro del cuerpo de la tabla (`<tbody>`).
+- La tabla incluye un encabezado (`<thead>`) con los nombres de las columnas: `Id`, `Nombre` y `Descripción`.
+
+### Manejo de Estado
+
+- La lista de elementos (`items`) se define como una propiedad privada dentro del bloque `@code`. Esta lista se inicializa en el método `OnInitialized` y se utiliza directamente en el marcado para renderizar la tabla.
+
+### Manejo de Eventos
+
+- Este componente no incluye manejo de eventos explícitos, pero puede extenderse fácilmente para incluir eventos como clics en filas o acciones en celdas específicas.
+
+### Flujo de Datos
+
+- Los datos se generan internamente en el componente mediante el método `OnInitialized`. Actualmente, no recibe parámetros externos ni expone eventos o datos hacia otros componentes.
+
+## Dependencias
+
+El componente `DemoTable` tiene las siguientes dependencias:
+
+- **Namespaces**: No requiere namespaces adicionales, ya que utiliza únicamente funcionalidades básicas de Blazor y C#.
+- **Componentes Hijos**: No utiliza componentes hijos en su marcado.
+- **Servicios Inyectados**: No utiliza servicios inyectados.
+- **Paquetes NuGet**: No depende de paquetes externos.
+
+## Ejemplo de Uso
+
+El siguiente ejemplo muestra cómo utilizar el componente `DemoTable` en una página Blazor. Este ejemplo es funcional y puede copiarse directamente en una aplicación Blazor.
+
+```razor
+@page "/demo-table"
+
+<h3>Ejemplo de DemoTable</h3>
+
+<DemoTable />
+```
+
+## Notas Técnicas
+
+<Note>
+El componente `DemoTable` es ideal para demostraciones y prototipos, pero no está diseñado para manejar grandes volúmenes de datos o integrarse con fuentes de datos externas sin modificaciones.
+</Note>
+
+<Tip>
+Si necesitas personalizar los datos o columnas, considera agregar parámetros al componente para aceptar listas dinámicas y configuraciones de columnas.
+</Tip>
+
+<Warning>
+El componente genera datos de ejemplo de manera estática. En aplicaciones reales, asegúrate de reemplazar esta lógica con datos provenientes de una fuente confiable, como un servicio API o una base de datos.
+</Warning>

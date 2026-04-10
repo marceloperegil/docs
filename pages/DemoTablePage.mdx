@@ -1,0 +1,85 @@
+---
+title: "DemoTablePage"
+description: "Página que muestra una tabla de demostración con 20 registros utilizando el componente DemoTable."
+sidebarTitle: "DemoTablePage"
+icon: "browser"
+---
+
+## Propósito
+
+La página `DemoTablePage` tiene como objetivo presentar una tabla de demostración con 20 registros utilizando el componente `DemoTable`. Este diseño es útil para probar y visualizar datos tabulares en un entorno controlado, proporcionando una base para implementar tablas más complejas en la aplicación. Es especialmente relevante para desarrolladores que necesitan verificar la funcionalidad y el diseño de tablas antes de integrarlas con datos reales.
+
+## Arquitectura y Funcionamiento
+
+### Ciclo de vida
+
+La página utiliza el ciclo de vida básico de Blazor:
+
+- **Renderización inicial**: La tabla se renderiza al cargar la página mediante el componente hijo `DemoTable`.
+- **Actualización de parámetros**: No se utilizan parámetros dinámicos en esta página, por lo que no hay lógica adicional en métodos como `OnParametersSet`.
+
+### Logica de renderizado condicional
+
+El contenido de la página es estático y no incluye lógica de renderizado condicional. El componente `DemoTable` se renderiza directamente en el markup.
+
+### Manejo de estado
+
+- **Variables y propiedades**: Esta página no define variables ni propiedades locales, ya que delega la funcionalidad al componente hijo `DemoTable`.
+- **Cascading values**: No se utilizan valores en cascada en esta implementación.
+
+### Manejo de eventos
+
+La página no maneja eventos directamente. Toda la interacción y lógica de eventos está encapsulada dentro del componente `DemoTable`.
+
+### Flujo de datos
+
+- **Entrada de datos**: No se pasan parámetros al componente `DemoTable` desde esta página.
+- **Transformación de datos**: La lógica de transformación de datos, si existe, está contenida dentro del componente `DemoTable`.
+- **Salida de datos**: No hay callbacks ni eventos que envíen datos desde esta página.
+
+## Dependencias
+
+### Namespaces
+
+- `@using LirmiDemoApp.Client.Shared`: Necesario para acceder al componente `DemoTable`.
+
+### Componentes hijos
+
+- **DemoTable**: Este componente es el núcleo de la página y se encarga de renderizar la tabla de 20 registros.
+
+### Servicios inyectados
+
+No se inyectan servicios en esta página.
+
+### Paquetes NuGet
+
+No se utilizan paquetes externos en esta implementación.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Item title="Básico">
+```razor
+@page "/demo-table"
+@using LirmiDemoApp.Client.Shared
+
+<h3>Demo Tabla de 20 Registros</h3>
+
+<DemoTable />
+```
+  </CodeGroup.Item>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El componente `DemoTable` debe estar correctamente implementado y configurado para que esta página funcione como se espera. Asegúrate de que el componente esté registrado y disponible en el namespace `LirmiDemoApp.Client.Shared`.
+</Note>
+
+<Tip>
+Para mejorar el rendimiento en tablas más grandes, considera implementar paginación, carga diferida o virtualización en el componente `DemoTable`.
+</Tip>
+
+<Warning>
+Esta página no incluye lógica de manejo de errores ni validación de datos. Si se utiliza en un entorno de producción, es necesario agregar estas funcionalidades.
+</Warning>

@@ -1,0 +1,86 @@
+---
+title: "Página de contador interactivo"
+description: "Una página Blazor que muestra un contador interactivo, permitiendo incrementar su valor mediante un botón."
+sidebarTitle: "Counter"
+icon: "browser"
+---
+
+## Propósito
+
+La página de contador (`Counter.razor`) proporciona una funcionalidad interactiva para incrementar un valor numérico. Es útil en aplicaciones donde se necesita demostrar interactividad básica, como parte de un tutorial o para manejar datos numéricos simples. Este componente está diseñado para usuarios que desean realizar operaciones incrementales de manera sencilla y directa.
+
+## Arquitectura y Funcionamiento
+
+### Ciclo de vida
+
+Este componente utiliza el ciclo de vida básico de Blazor. No implementa métodos como `OnInitialized` o `OnParametersSet`, ya que su lógica es sencilla y no requiere inicialización adicional ni manejo de parámetros externos.
+
+### Lógica de renderizado condicional
+
+El componente no utiliza renderizado condicional. Todo el contenido se renderiza de manera estática y se actualiza dinámicamente cuando el estado interno cambia.
+
+### Manejo de estado
+
+- **Variables internas**: 
+  - `currentCount`: Representa el valor actual del contador. Es una variable privada de tipo `int` que se inicializa en `0`.
+- **Actualización del estado**: El estado se actualiza mediante el método `IncrementCount`, que incrementa el valor de `currentCount` en 4 cada vez que se hace clic en el botón.
+
+### Manejo de eventos
+
+- **Eventos de clic**: 
+  - El evento `@onclick` está vinculado al método `IncrementCount`, que se ejecuta cada vez que el usuario hace clic en el botón.
+
+### Flujo de datos
+
+- **Entrada de datos**: No se reciben parámetros externos.
+- **Transformación de datos**: El valor de `currentCount` se incrementa en 4 cada vez que se ejecuta el método `IncrementCount`.
+- **Salida de datos**: El valor actualizado de `currentCount` se muestra dinámicamente en el elemento `<p>`.
+
+## Dependencias
+
+- **Namespaces**: No se utiliza ningún namespace adicional en este componente.
+- **Componentes hijos**: No se incluyen componentes hijos en el markup.
+- **Servicios inyectados**: No se inyectan servicios en este componente.
+- **Paquetes NuGet externos**: No se utilizan paquetes externos.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Item title="Uso básico">
+  ```razor
+  @page "/counter"
+  @rendermode InteractiveAuto
+  @*Actualizar*@
+  <PageTitle>Counter</PageTitle>
+
+  <h1>Counter page</h1>
+
+  <p role="status">Current count: @currentCount</p>
+
+  <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+  @code {
+      private int currentCount = 0;
+
+      private void IncrementCount()
+      {
+          currentCount += 4;
+      }
+  }
+  ```
+  </CodeGroup.Item>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El valor del contador se incrementa en pasos de 4, lo cual puede ser modificado según las necesidades del usuario ajustando la lógica del método `IncrementCount`.
+</Note>
+
+<Tip>
+Para mejorar la experiencia del usuario, considera agregar estilos adicionales al botón o al texto del contador, utilizando clases CSS personalizadas.
+</Tip>
+
+<Warning>
+Este componente no maneja límites superiores ni inferiores para el contador. Si se requiere validación o restricción de valores, debe implementarse manualmente.
+</Warning>
