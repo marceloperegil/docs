@@ -2,22 +2,29 @@
 # Resumen Ejecutivo de Cambios en la Aplicación Blazor WebAssembly
 
 ## Nuevas Funcionalidades
-- **`Counter.razor`:**  
-  Se implementó un contador con funcionalidad de incremento y decremento. Esto permite a los usuarios interactuar con el componente de manera más flexible, mejorando la experiencia de usuario en pruebas de funcionalidad básica.
+- **`UiDatePicker.razor` y `UiDateRangePicker.razor`:**  
+  Se agregó soporte para la selección de fechas en formato personalizado.  
+  **Impacto funcional:** Los usuarios ahora pueden trabajar con formatos de fecha específicos según los requisitos del proyecto, mejorando la flexibilidad en la entrada de datos.
 
-- **`DemoTablePage.razor`:**  
-  Se añadió una tabla interactiva que utiliza el componente `DemoTable`. Los usuarios ahora pueden visualizar y gestionar datos en un formato tabular, lo que facilita la presentación y manipulación de información.
+- **`UiSwitch.razor`:**  
+  Se incorporó una propiedad para manejar estados intermedios (indeterminate).  
+  **Impacto funcional:** Permite representar estados no definitivos en los interruptores, ampliando su aplicabilidad en formularios complejos.
 
 ## Correcciones
-- **`DemoTable.razor`:**  
-  Se corrigió un problema en el renderizado de filas de la tabla. Ahora las filas se generan correctamente según los datos proporcionados, garantizando que la información se muestre de manera precisa y sin errores visuales.
+- **`UiAutocomplete.razor`:**  
+  Se corrigió un problema donde las sugerencias no se actualizaban al cambiar dinámicamente el origen de datos.  
+  **Impacto funcional:** Garantiza que los usuarios vean resultados actualizados en tiempo real, mejorando la experiencia de búsqueda.
+
+- **`UiCheckbox.razor`:**  
+  Resuelto un error que impedía la correcta vinculación de datos bidireccional en formularios.  
+  **Impacto funcional:** Asegura que los cambios en el estado del checkbox se reflejen correctamente en el modelo de datos.
 
 ## Refactorizaciones
-- **`DemoTable.razor`:**  
-  Se optimizó la lógica de generación de columnas para mejorar la eficiencia del componente. Esto reduce la carga de procesamiento en el cliente, mejorando el rendimiento general de la aplicación.
+- **`UiToolkitPage.razor`:**  
+  Se reorganizó la estructura del código para mejorar la legibilidad y facilitar la incorporación de nuevos componentes.  
+  **Impacto funcional:** Simplifica el mantenimiento y la extensión de la página de demostración de componentes.
 
-## Impacto Funcional
-- Los cambios realizados mejoran la interacción del usuario con los componentes clave de la aplicación, ofreciendo una experiencia más intuitiva y funcional.
-- La corrección en el renderizado de la tabla asegura que los datos se presenten de manera confiable, lo que es crucial para la gestión de información.
-- Las optimizaciones en el código contribuyen a un mejor rendimiento, especialmente en escenarios con grandes volúmenes de datos.
+- **`UiSelector.razor`:**  
+  Optimización del manejo de eventos para reducir el uso innecesario de recursos.  
+  **Impacto funcional:** Mejora el rendimiento en escenarios con listas extensas, reduciendo la latencia en la selección de elementos.
 ```

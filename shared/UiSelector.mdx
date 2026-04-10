@@ -1,0 +1,133 @@
+---
+title: "Selector de Opciones Reutilizable (UiSelector)"
+description: "Componente Blazor reutilizable para seleccionar opciones de una lista desplegable con soporte para eventos y personalización."
+sidebarTitle: "UiSelector"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiSelector` es un selector de opciones reutilizable diseñado para aplicaciones Blazor. Su propósito principal es permitir a los usuarios seleccionar un valor de una lista desplegable, mientras que el valor seleccionado se comunica dinámicamente al componente padre mediante un `EventCallback`. Este componente es útil en formularios y vistas donde se requiere una interacción fluida y reactiva con listas de opciones personalizadas.
+
+## Arquitectura y Funcionamiento
+
+El `UiSelector` sigue un diseño simple pero efectivo que permite la interacción entre el componente y su entorno. A continuación, se detalla su funcionamiento interno:
+
+### Ciclo de Vida
+
+- **Renderizado inicial**: El componente se inicializa con los valores proporcionados a través de los parámetros `Options` y `SelectedValue`.
+- **Actualización de parámetros**: Cuando el valor seleccionado cambia, el componente invoca el `EventCallback` asociado para notificar al componente padre.
+
+### Lógica de Renderizado
+
+- El componente utiliza un bucle `@foreach` para generar dinámicamente las opciones del `<select>` en función de la lista `Options`.
+- El atributo `@bind-Value` asegura que el valor seleccionado esté sincronizado con la propiedad `SelectedValue`.
+
+### Manejo de Estado
+
+- **Propiedades**:
+  - `Options`: Lista de opciones disponibles para el selector.
+  - `SelectedValue`: Valor actualmente seleccionado.
+- **Estado interno**: No utiliza estado interno adicional, ya que todo el estado relevante se gestiona a través de parámetros.
+
+### Manejo de Eventos
+
+- **Evento de cambio**: El método `OnValueChanged` se ejecuta cuando el usuario selecciona una nueva opción. Este método:
+  1. Obtiene el valor seleccionado del evento `ChangeEventArgs`.
+  2. Invoca el `EventCallback` `SelectedValueChanged` para notificar al componente padre.
+
+### Flujo de Datos
+
+1. **Entrada**: Los datos de las opciones (`Options`) y el valor inicial (`SelectedValue`) se pasan como parámetros desde el componente padre.
+2. **Transformación**: El componente no realiza transformaciones complejas; simplemente muestra las opciones y sincroniza el valor seleccionado.
+3. **Salida**: El valor seleccionado se comunica al componente padre mediante el `EventCallback` `SelectedValueChanged`.
+
+## Parámetros
+
+| Parámetro            | Tipo              | Obligatorio | Valor por defecto | Descripción                                                                 |
+|----------------------|-------------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Options`            | `List<OptionItem>` | Sí          | `new List<OptionItem>()` | Lista de opciones disponibles para el selector. Cada opción tiene un valor y un texto. |
+| `SelectedValue`      | `string`          | No          | `string.Empty`    | Valor actualmente seleccionado en el selector.                             |
+| `SelectedValueChanged` | `EventCallback<string>` | No          | N/A               | Callback que se invoca cuando el valor seleccionado cambia.                 |
+
+## Dependencias
+
+- **Namespaces**:
+  - `Microsoft.AspNetCore.Components`: Necesario para el uso de componentes Blazor y `EventCallback`.
+- **Componentes hijos**:
+  - `<InputSelect>`: Utilizado como el elemento base del selector.
+- **Servicios inyectados**: Ninguno.
+- **Paquetes NuGet**: No requiere paquetes externos adicionales.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Label title="Básico" />
+
+  ```razor
+  <UiSelector 
+      Options="new List<UiSelector.OptionItem>
+      {
+          new UiSelector.OptionItem { Value = "1", Text = "Opción 1" },
+          new UiSelector.OptionItem { Value = "2", Text = "Opción 2" }
+      }"
+      SelectedValue="SelectedOption"
+      SelectedValueChanged="OnOptionChanged" />
+
+  @code {
+      private string SelectedOption = "1";
+
+      private void OnOptionChanged(string newValue)
+      {
+          SelectedOption = newValue;
+          Console.WriteLine($"Nuevo valor seleccionado: {SelectedOption}");
+      }
+  }
+  ```
+
+  <CodeGroup.Label title="Con valores dinámicos" />
+
+  ```razor
+  @inject HttpClient Http
+
+  <UiSelector 
+      Options="DynamicOptions"
+      SelectedValue="SelectedOption"
+      SelectedValueChanged="OnOptionChanged" />
+
+  @code {
+      private List<UiSelector.OptionItem> DynamicOptions = new();
+      private string SelectedOption = string.Empty;
+
+      protected override async Task OnInitializedAsync()
+      {
+          var data = await Http.GetFromJsonAsync<List<UiSelector.OptionItem>>("api/options");
+          DynamicOptions = data ?? new List<UiSelector.OptionItem>();
+      }
+
+      private void OnOptionChanged(string newValue)
+      {
+          SelectedOption = newValue;
+          Console.WriteLine($"Nuevo valor seleccionado: {SelectedOption}");
+      }
+  }
+  ```
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El componente es altamente reutilizable y puede integrarse fácilmente en cualquier formulario o vista que requiera un selector de opciones.
+</Note>
+
+<Tip>
+Para mejorar el rendimiento en listas grandes, considere implementar una paginación o carga diferida de las opciones.
+</Tip>
+
+<Warning>
+El componente no realiza validaciones sobre los datos proporcionados en `Options`. Asegúrese de que cada opción tenga valores únicos para evitar comportamientos inesperados.
+</Warning>
+
+<Tip>
+Cuando utilice `UiSelector` en formularios, combine su uso con validaciones de datos para garantizar la integridad de la entrada del usuario.
+</Tip>

@@ -1,0 +1,95 @@
+---
+title: "Componente UiSwitch"
+description: "Un componente Blazor reutilizable para representar un interruptor con soporte para eventos y personalización de etiquetas."
+sidebarTitle: "UiSwitch"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiSwitch` es un interruptor reutilizable diseñado para aplicaciones Blazor. Permite a los usuarios alternar entre dos estados (activado/desactivado) y notifica los cambios a través de un evento. Es útil en formularios, configuraciones y cualquier interfaz donde se necesite un control booleano simple y visualmente claro.
+
+## Arquitectura y Funcionamiento
+
+El componente `UiSwitch` sigue un diseño simple pero efectivo que incluye:
+
+### Ciclo de vida
+
+- **Inicialización de parámetros**: Los parámetros `Checked`, `CheckedChanged` y `Label` se inicializan con valores predeterminados o los proporcionados por el padre.
+- **Manejo de eventos**: El evento `onchange` del elemento `<input>` se conecta al método `OnChange`, que procesa el cambio de estado y notifica al componente padre.
+
+### Lógica de renderizado
+
+- El componente utiliza un diseño basado en clases de Bootstrap (`form-check` y `form-switch`) para garantizar un estilo consistente y responsivo.
+- El estado del interruptor (`Checked`) se vincula al atributo `checked` del elemento `<input>`.
+- La etiqueta del interruptor (`Label`) se renderiza dinámicamente utilizando el valor del parámetro `Label`.
+
+### Manejo de estado
+
+- **Propiedad `Checked`**: Representa el estado actual del interruptor (activado/desactivado). Es un parámetro bidireccional que permite la sincronización con el componente padre.
+- **Evento `CheckedChanged`**: Permite notificar al componente padre cuando el estado del interruptor cambia.
+- **Propiedad `Label`**: Define el texto que se muestra junto al interruptor.
+
+### Manejo de eventos
+
+- El método `OnChange` se ejecuta cuando el usuario interactúa con el interruptor. Este método:
+  1. Obtiene el nuevo valor del interruptor desde el evento `ChangeEventArgs`.
+  2. Invoca el `EventCallback` `CheckedChanged` para notificar al componente padre sobre el cambio de estado.
+
+## Parámetros
+
+| Parámetro       | Tipo          | Obligatorio | Valor por defecto | Descripción                                                                 |
+|-----------------|---------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Checked`       | `bool`        |     No      | `true`            | Indica si el interruptor está activado (`true`) o desactivado (`false`).    |
+| `CheckedChanged`| `EventCallback<bool>` | No | N/A               | Evento que se dispara cuando el estado del interruptor cambia.              |
+| `Label`         | `string`      |     No      | `""`              | Texto que se muestra junto al interruptor.                                  |
+
+## Dependencias
+
+- **Namespaces**:  
+  - `Microsoft.AspNetCore.Components` para el uso de `[Parameter]` y `EventCallback`.
+- **Clases CSS**:  
+  - `form-check` y `form-switch` de Bootstrap para el diseño visual del interruptor.
+- **Servicios externos**:  
+  - No se utilizan servicios inyectados en este componente.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Code title="Básico">
+  ```razor
+  <UiSwitch Checked="true" Label="Habilitar notificaciones" 
+            CheckedChanged="@(value => Console.WriteLine($"Estado: {value}"))" />
+  ```
+  </CodeGroup.Code>
+  <CodeGroup.Code title="Avanzado">
+  ```razor
+  @code {
+      private bool isFeatureEnabled = false;
+
+      private void OnFeatureToggle(bool value)
+      {
+          isFeatureEnabled = value;
+          Console.WriteLine($"Estado actualizado: {isFeatureEnabled}");
+      }
+  }
+
+  <UiSwitch Checked="@isFeatureEnabled" Label="Activar función avanzada" 
+            CheckedChanged="OnFeatureToggle" />
+  ```
+  </CodeGroup.Code>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Tip>
+Para garantizar un diseño consistente, asegúrate de que tu proyecto incluya las clases CSS de Bootstrap necesarias para `form-check` y `form-switch`.
+</Tip>
+
+<Warning>
+El componente no valida automáticamente el tipo de datos del evento `ChangeEventArgs`. Asegúrate de que el valor recibido sea convertible a `bool` para evitar errores.
+</Warning>
+
+<Note>
+El componente utiliza un diseño minimalista y no incluye estilos personalizados. Si necesitas personalización adicional, considera extender las clases CSS o envolver el componente en un contenedor con estilos propios.
+</Note>

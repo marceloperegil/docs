@@ -25,6 +25,7 @@
               "pages/Counter",
               "pages/DemoTablePage",
               "pages/FormPage",
+              "pages/UiToolkitPage",
               "pages/getting-started",
               "pages/project-structure"
             ]
@@ -38,7 +39,13 @@
           {
             "group": "Shared",
             "pages": [
-              "shared/DemoTable"
+              "shared/DemoTable",
+              "shared/UiAutocomplete",
+              "shared/UiCheckbox",
+              "shared/UiDatePicker",
+              "shared/UiDateRangePicker",
+              "shared/UiSelector",
+              "shared/UiSwitch"
             ]
           },
           {

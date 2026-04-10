@@ -1,0 +1,109 @@
+---
+title: "Componente UiCheckbox"
+description: "Componente Blazor reutilizable para la representación y manejo de un checkbox con soporte para binding bidireccional y eventos personalizados."
+sidebarTitle: "UiCheckbox"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiCheckbox` es un checkbox reutilizable diseñado para aplicaciones Blazor. Este componente permite a los desarrolladores integrar fácilmente una casilla de verificación con soporte para binding bidireccional y eventos personalizados. Es útil en formularios y configuraciones donde se requiere capturar entradas booleanas del usuario, como activar o desactivar opciones específicas.
+
+## Arquitectura y Funcionamiento
+
+El componente `UiCheckbox` sigue un diseño simple pero efectivo para manejar la interacción del usuario con una casilla de verificación. A continuación, se detalla su funcionamiento interno:
+
+### Ciclo de vida
+
+El componente utiliza los siguientes métodos del ciclo de vida de Blazor:
+
+- **Renderizado inicial**: El componente se inicializa con el valor predeterminado del parámetro `Checked`.
+- **Eventos de cambio**: El método `OnChange` se ejecuta cada vez que el usuario interactúa con la casilla de verificación, actualizando el estado y propagando el cambio mediante el `EventCallback`.
+
+### Lógica de renderizado condicional
+
+El componente utiliza un simple bloque de marcado Razor para renderizar un `<input>` de tipo checkbox y un `<label>` asociado. El estado del checkbox (`checked`) se vincula al parámetro `Checked`.
+
+### Manejo de estado
+
+- **Propiedades**: 
+  - `Checked`: Representa el estado actual del checkbox (marcado o desmarcado).
+  - `Label`: Texto que se muestra junto al checkbox.
+- **Eventos**:
+  - `CheckedChanged`: Callback que se invoca cuando el estado del checkbox cambia.
+
+### Manejo de eventos
+
+El evento `onchange` del checkbox está vinculado al método `OnChange`. Este método:
+
+1. Captura el valor del evento de cambio.
+2. Convierte el valor recibido en un booleano.
+3. Invoca el `EventCallback` `CheckedChanged` para notificar a los componentes padre sobre el cambio.
+
+### Flujo de datos
+
+1. **Entrada**: Los datos se reciben a través de los parámetros `Checked` y `Label`.
+2. **Transformación**: El método `OnChange` procesa el valor del evento de cambio.
+3. **Salida**: El estado actualizado del checkbox se propaga al componente padre mediante el `EventCallback` `CheckedChanged`.
+
+## Parámetros
+
+| Parámetro       | Tipo          | Obligatorio | Valor por defecto | Descripción                                                                 |
+|-----------------|---------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Checked`       | `bool`        |     No      | `true`            | Indica si el checkbox está marcado (`true`) o desmarcado (`false`).         |
+| `CheckedChanged`| `EventCallback<bool>` | No      | N/A               | Callback que se invoca cuando el estado del checkbox cambia.                |
+| `Label`         | `string`      |     No      | `""`              | Texto que se muestra junto al checkbox.                                     |
+
+## Dependencias
+
+- **Namespaces**: 
+  - `Microsoft.AspNetCore.Components` para el uso de `[Parameter]` y `EventCallback`.
+- **Servicios inyectados**: Ninguno.
+- **Componentes hijos**: Ninguno.
+- **Paquetes NuGet**: No requiere paquetes externos.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Item title="Básico">
+```razor
+<UiCheckbox Label="Aceptar términos y condiciones" Checked="true" CheckedChanged="OnCheckboxChanged" />
+
+@code {
+    private async Task OnCheckboxChanged(bool isChecked)
+    {
+        Console.WriteLine($"Checkbox marcado: {isChecked}");
+    }
+}
+```
+  </CodeGroup.Item>
+  <CodeGroup.Item title="Con estado dinámico">
+```razor
+<UiCheckbox Label="Recibir notificaciones" Checked="@isSubscribed" CheckedChanged="OnSubscriptionChanged" />
+
+@code {
+    private bool isSubscribed = false;
+
+    private async Task OnSubscriptionChanged(bool isChecked)
+    {
+        isSubscribed = isChecked;
+        Console.WriteLine($"Suscripción actualizada: {isSubscribed}");
+    }
+}
+```
+  </CodeGroup.Item>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+El componente utiliza binding bidireccional a través del patrón `[Parameter]` y `EventCallback`. Esto permite que los cambios en el estado del checkbox se reflejen automáticamente en el componente padre.
+</Note>
+
+<Tip>
+Para mejorar la accesibilidad, asegúrate de proporcionar un texto descriptivo en el parámetro `Label`. Esto facilita la interacción para usuarios con lectores de pantalla.
+</Tip>
+
+<Warning>
+El componente no valida automáticamente el tipo de datos del evento de cambio. Asegúrate de que el valor recibido en `OnChange` sea convertible a un booleano.
+</Warning>

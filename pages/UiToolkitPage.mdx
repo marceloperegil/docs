@@ -1,0 +1,138 @@
+---
+title: "Página de demostración del UI Toolkit"
+description: "Demuestra el uso de componentes del UI Toolkit en Blazor para la aplicación Lirmi."
+sidebarTitle: "UiToolkitPage"
+icon: "browser"
+---
+
+## Propósito
+
+La página `UiToolkitPage` sirve como una demostración práctica de varios componentes del UI Toolkit utilizados en la aplicación Lirmi. Estos componentes permiten la interacción del usuario mediante elementos como autocompletado, selectores, casillas de verificación, interruptores, y selectores de fecha y rango de fechas. Es esencial para validar y mostrar cómo se integran estos componentes en un flujo de trabajo real, proporcionando una referencia para desarrolladores que deseen implementar funcionalidades similares.
+
+## Arquitectura y Funcionamiento
+
+### Ciclo de vida
+
+La página utiliza los métodos del ciclo de vida de Blazor para manejar el estado y los eventos de los componentes. Aunque no se implementan métodos como `OnInitialized` o `OnParametersSet`, el manejo de estado y eventos se realiza directamente en los métodos de callback asociados a cada componente.
+
+### Lógica de renderizado condicional
+
+El contenido de la página se renderiza dinámicamente en función de las interacciones del usuario. Por ejemplo:
+- El estado de los componentes como `UiCheckbox` y `UiSwitch` se refleja en tiempo real mediante expresiones condicionales.
+- Los valores seleccionados en componentes como `UiAutocomplete` y `UiSelector` se actualizan y se muestran al usuario.
+
+### Manejo de estado
+
+La página utiliza variables locales para gestionar el estado de cada componente:
+- `selectedAutocomplete`: Almacena el valor seleccionado en el componente `UiAutocomplete`.
+- `selectedSelector`: Almacena el valor seleccionado en el componente `UiSelector`.
+- `checkboxChecked` y `switchChecked`: Representan el estado de los componentes `UiCheckbox` y `UiSwitch`.
+- `selectedDate`, `startDate`, y `endDate`: Gestionan las fechas seleccionadas en los componentes de selección de fecha.
+
+### Manejo de eventos
+
+Cada componente tiene un evento asociado que se ejecuta cuando el usuario interactúa con él:
+- `OnAutocompleteSelected`: Se ejecuta al seleccionar un valor en el autocompletado.
+- `OnSelectorChanged`: Se ejecuta al cambiar el valor seleccionado en el selector.
+- `OnCheckboxChanged`: Se ejecuta al marcar o desmarcar la casilla de verificación.
+- `OnSwitchChanged`: Se ejecuta al activar o desactivar el interruptor.
+- `OnDateChanged`, `OnStartDateChanged`, `OnEndDateChanged`: Se ejecutan al seleccionar una fecha o rango de fechas.
+
+### Flujo de datos
+
+Los datos entran a través de las propiedades de los componentes, como `Items`, `Options`, y `SelectedDate`. Los valores seleccionados se transforman y se almacenan en variables locales, que luego se muestran en la interfaz mediante interpolación de Razor.
+
+## Parámetros
+
+| Parámetro               | Tipo              | Obligatorio | Valor por defecto | Descripción                                                                 |
+|-------------------------|-------------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `Items`                | `List<string>`    | Sí          | N/A               | Lista de elementos para el componente `UiAutocomplete`.                    |
+| `Options`              | `List<OptionItem>`| Sí          | N/A               | Lista de opciones para el componente `UiSelector`.                         |
+| `Checked`              | `bool`            | Sí          | `false`           | Estado inicial del componente `UiCheckbox` y `UiSwitch`.                   |
+| `SelectedDate`         | `DateTime?`       | No          | `DateTime.Today`  | Fecha seleccionada en el componente `UiDatePicker`.                        |
+| `StartDate`            | `DateTime?`       | No          | `DateTime.Today.AddDays(-7)` | Fecha de inicio en el componente `UiDateRangePicker`.                      |
+| `EndDate`              | `DateTime?`       | No          | `DateTime.Today`  | Fecha de fin en el componente `UiDateRangePicker`.                         |
+
+## Dependencias
+
+- **Namespaces**: 
+  - `@using LirmiDemoApp.Client.Shared`: Necesario para acceder a los componentes del UI Toolkit.
+  
+- **Componentes hijos**:
+  - `UiAutocomplete`: Para autocompletado.
+  - `UiSelector`: Para selección de opciones.
+  - `UiCheckbox`: Para casillas de verificación.
+  - `UiSwitch`: Para interruptores.
+  - `UiDatePicker`: Para selección de fechas.
+  - `UiDateRangePicker`: Para selección de rangos de fechas.
+
+- **Servicios inyectados**: No se utilizan servicios inyectados en esta página.
+
+- **Paquetes NuGet**: No se mencionan paquetes externos específicos.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+<CodeGroup.Entry title="Ejemplo básico">
+```razor
+@page "/ui-toolkit"
+@using LirmiDemoApp.Client.Shared
+
+<h3>Demostración de UI Toolkit</h3>
+
+<UiAutocomplete Items="new List<string> { 'Chile', 'Argentina', 'Perú' }" Value="@selectedValue" ValueChanged="@OnValueChanged" />
+<div>Seleccionado: @selectedValue</div>
+
+@code {
+    private string selectedValue;
+    private Task OnValueChanged(string value) {
+        selectedValue = value;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
+```
+</CodeGroup.Entry>
+<CodeGroup.Entry title="Ejemplo avanzado">
+```razor
+@page "/ui-toolkit"
+@using LirmiDemoApp.Client.Shared
+
+<h3>Demostración avanzada de UI Toolkit</h3>
+
+<UiDateRangePicker StartDate="@startDate" StartDateChanged="@OnStartDateChanged" EndDate="@endDate" EndDateChanged="@OnEndDateChanged" />
+<div>Rango seleccionado: @startDate?.ToShortDateString() - @endDate?.ToShortDateString()</div>
+
+@code {
+    private DateTime? startDate = DateTime.Today.AddDays(-7);
+    private DateTime? endDate = DateTime.Today;
+
+    private Task OnStartDateChanged(DateTime? value) {
+        startDate = value;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnEndDateChanged(DateTime? value) {
+        endDate = value;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
+```
+</CodeGroup.Entry>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Note>
+Los componentes del UI Toolkit están diseñados para ser altamente reutilizables y configurables. Asegúrate de proporcionar valores iniciales adecuados para evitar errores de estado.
+</Note>
+
+<Warning>
+Evita realizar operaciones costosas dentro de los métodos de callback (`ValueChanged`, `CheckedChanged`, etc.), ya que esto puede afectar el rendimiento de la aplicación.
+</Warning>
+
+<Tip>
+Utiliza `StateHasChanged` solo cuando sea necesario para evitar renderizados innecesarios que puedan impactar la experiencia del usuario.
+</Tip>

@@ -1,0 +1,106 @@
+---
+title: "Selector de Fecha Reutilizable (UiDatePicker)"
+description: "Componente Blazor para seleccionar fechas con soporte para enlaces bidireccionales y manejo de eventos."
+sidebarTitle: "UiDatePicker"
+icon: "puzzle-piece"
+---
+
+## Propósito
+
+El componente `UiDatePicker` es un selector de fechas reutilizable diseñado para aplicaciones Blazor. Su propósito principal es permitir a los usuarios seleccionar una fecha de manera sencilla, con soporte para enlaces bidireccionales de datos (`@bind-Value`) y manejo de eventos personalizados. Este componente es ideal para formularios o interfaces donde se requiera capturar o mostrar información basada en fechas, como agendas, calendarios o filtros de búsqueda.
+
+## Arquitectura y Funcionamiento
+
+El `UiDatePicker` utiliza el componente interno de Blazor `<InputDate>` para renderizar un campo de entrada de fecha. A continuación, se detalla su funcionamiento:
+
+### Ciclo de vida
+
+- **Inicialización de parámetros:** El componente inicializa el parámetro `SelectedDate` con el valor predeterminado de `DateTime.Today` si no se proporciona un valor inicial.
+- **Manejo de cambios:** Cuando el usuario selecciona una nueva fecha, se invoca el método `OnDateChangedHandler`, que procesa el cambio y actualiza el valor enlazado.
+
+### Lógica de renderizado condicional
+
+El componente no incluye lógica de renderizado condicional, ya que su propósito es exclusivamente mostrar un selector de fecha.
+
+### Manejo de estado
+
+- **Propiedades públicas:** 
+  - `SelectedDate`: Representa la fecha seleccionada actualmente.
+- **Propiedades privadas:** 
+  - Ninguna.
+- **Enlace bidireccional:** El parámetro `SelectedDate` utiliza `@bind-Value` para sincronizar automáticamente el estado entre el componente y su contexto padre.
+
+### Manejo de eventos
+
+- **Evento `onchange`:** Se utiliza para capturar los cambios en el valor del campo de entrada. 
+- **Callback personalizado:** El evento `SelectedDateChanged` permite notificar al componente padre cuando la fecha seleccionada cambia.
+
+### Flujo de datos
+
+1. **Entrada:** El parámetro `SelectedDate` recibe un valor inicial opcional desde el componente padre.
+2. **Transformación:** El método `OnDateChangedHandler` valida y convierte el valor ingresado por el usuario.
+3. **Salida:** El evento `SelectedDateChanged` notifica al componente padre con el nuevo valor seleccionado.
+
+## Parámetros
+
+| Parámetro            | Tipo         | Obligatorio | Valor por defecto | Descripción                                                                 |
+|----------------------|--------------|:-----------:|-------------------|-----------------------------------------------------------------------------|
+| `SelectedDate`       | `DateTime?`  |     No      | `DateTime.Today`  | Fecha seleccionada actualmente.                                             |
+| `SelectedDateChanged`| `EventCallback<DateTime?>` | No | N/A               | Callback que se invoca cuando cambia la fecha seleccionada.                 |
+
+## Dependencias
+
+- **Namespaces:**
+  - `Microsoft.AspNetCore.Components`: Necesario para el uso de componentes Blazor y `EventCallback`.
+  - `Microsoft.AspNetCore.Components.Forms`: Requerido para el componente `<InputDate>`.
+
+- **Componentes hijos:**
+  - `<InputDate>`: Componente nativo de Blazor utilizado para la entrada de fechas.
+
+- **Servicios inyectados:**
+  - Ninguno.
+
+- **Paquetes NuGet:**
+  - Ninguno adicional más allá de los incluidos por defecto en aplicaciones Blazor.
+
+## Ejemplo de Uso
+
+<CodeGroup>
+  <CodeGroup.Item title="Básico">
+```razor
+<UiDatePicker @bind-SelectedDate="FechaSeleccionada" />
+
+@code {
+    private DateTime? FechaSeleccionada = DateTime.Today;
+}
+```
+  </CodeGroup.Item>
+  <CodeGroup.Item title="Con manejo de eventos">
+```razor
+<UiDatePicker SelectedDate="FechaSeleccionada" SelectedDateChanged="OnFechaCambiada" />
+
+@code {
+    private DateTime? FechaSeleccionada = DateTime.Today;
+
+    private void OnFechaCambiada(DateTime? nuevaFecha)
+    {
+        Console.WriteLine($"Fecha seleccionada: {nuevaFecha}");
+    }
+}
+```
+  </CodeGroup.Item>
+</CodeGroup>
+
+## Notas Técnicas
+
+<Tip>
+Para evitar errores de conversión, asegúrate de que el valor ingresado sea una fecha válida antes de procesarlo.
+</Tip>
+
+<Warning>
+Este componente no incluye validación adicional ni soporte para formatos de fecha personalizados. Si necesitas estas características, considera extender el componente.
+</Warning>
+
+<Note>
+El uso de `@bind-Value` simplifica el manejo de estado, pero asegúrate de que el modelo enlazado sea compatible con valores nulos (`DateTime?`).
+</Note>
