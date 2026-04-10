@@ -16,16 +16,22 @@
       ]
     },
     {
+      "group": "Pages",
+      "pages": [
+        "pages/getting-started",
+        "pages/project-structure"
+      ]
+    },
+    {
       "group": "Components",
       "pages": [
         "components/components"
       ]
     },
     {
-      "group": "Pages",
+      "group": "Misc",
       "pages": [
-        "pages/getting-started",
-        "pages/project-structure"
+        "index"
       ]
     }
   ]
