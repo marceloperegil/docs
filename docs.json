@@ -8,32 +8,33 @@
     "light": "#10B981",
     "dark": "#047857"
   },
-  "navigation": [
-    {
-      "group": "Inicio",
-      "pages": [
-        "index"
-      ]
-    },
-    {
-      "group": "Pages",
-      "pages": [
-        "pages/FormPage",
-        "pages/getting-started",
-        "pages/project-structure"
-      ]
-    },
-    {
-      "group": "Components",
-      "pages": [
-        "components/components"
-      ]
-    },
-    {
-      "group": "Misc",
-      "pages": [
-        "index"
-      ]
-    }
-  ]
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentación",
+        "groups": [
+          {
+            "group": "Inicio",
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "Pages",
+            "pages": [
+              "pages/FormPage",
+              "pages/getting-started",
+              "pages/project-structure"
+            ]
+          },
+          {
+            "group": "Components",
+            "pages": [
+              "components/components"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
